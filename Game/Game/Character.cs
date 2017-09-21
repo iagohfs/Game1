@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Character
+    class Character : MovableEntity
     {
         public Character()
         {

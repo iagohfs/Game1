@@ -11,6 +11,13 @@ namespace Game
         int SizeX;
         int SizeY;
 
+        public Room()
+        {
+            char[,] room = new char[SizeX, SizeY];
+
+
+        }
+
         // Something to store the entities in the current room
         // Ordered list. Keep the player at the lowest index and iterate backwards, to draw the player last.
     }
