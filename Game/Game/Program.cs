@@ -10,8 +10,8 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            Player player = new Player();
-            Map map = new Map();
+            
+            
         }
     }
 

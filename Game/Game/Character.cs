@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Player
+    class Character
     {
-        public Player()
+        public Character()
         {
 
         }
