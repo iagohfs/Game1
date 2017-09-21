@@ -8,9 +8,15 @@ namespace Game
 {
     class Map
     {
-        public Map()
+        private string mapName;
+        public Map(string name)
         {
+            name = mapName;
+        }
 
+        public void getMapName()
+        {
+            return;
         }
     }
 }

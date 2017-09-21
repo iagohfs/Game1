@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Item
+    public abstract class Item
     {
-        public Item()
-        {
+        public abstract int value();
 
-        }
     }
 }

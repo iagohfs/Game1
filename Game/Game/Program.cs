@@ -12,7 +12,6 @@ namespace Game
         {
             Player player = new Player();
             Map map = new Map();
-            Item item = new Item();
         }
     }
 
