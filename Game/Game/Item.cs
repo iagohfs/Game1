@@ -8,5 +8,9 @@ namespace Game
 {
     class Item
     {
+        public Item()
+        {
+
+        }
     }
 }
