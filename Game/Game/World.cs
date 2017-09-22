@@ -19,7 +19,7 @@ namespace Game
             Rooms.Add(start);
             do
             {
-                start.DrawRoomEntities();
+                Console.Clear();
                 DrawCurrentRoom(start);
 
                 switch (Console.ReadKey(true).Key)
@@ -51,6 +51,8 @@ namespace Game
                 }
                 Console.WriteLine();
             }
+
+            r.DrawRoomEntities();
         }
     }
 }
