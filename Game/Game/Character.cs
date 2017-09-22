@@ -10,7 +10,7 @@ namespace Game
     {
         public Character()
         {
-            
+
         }
 
         public string Name(string name)
@@ -19,6 +19,12 @@ namespace Game
             addName[0] = name;
             return "Your Character name is: " + addName[0];
         }
+
+        public bool IsAlive()
+        {
+            return true;
+        }
+
     }
 
 }
