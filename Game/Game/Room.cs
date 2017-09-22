@@ -8,13 +8,12 @@ namespace Game
 {
     class Room
     {
-        int SizeX;
-        int SizeY;
+        private int SizeX = 10;
+        private int SizeY = 20;
 
         public Room()
         {
             char[,] room = new char[SizeX, SizeY];
-
 
         }
 

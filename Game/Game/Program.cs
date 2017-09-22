@@ -10,7 +10,14 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            
+            Character Player = new Character();
+            Console.WriteLine("Add a character name: ");
+            string input = Console.ReadLine();
+            input = Player.Name(input);
+
+            Console.WriteLine(input);
+
+            Console.ReadLine();
             
         }
     }
