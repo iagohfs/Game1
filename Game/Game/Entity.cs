@@ -11,7 +11,11 @@ namespace Game
         // The character that represents the entity
         public char Symbol { get; protected set; }
 
-        public bool IsSolid = true;
+        public Coordinate Location;
+
+        public bool IsSolid;
+
+        public bool IsVisible;
 
         public void Draw()
         {

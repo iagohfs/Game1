@@ -10,7 +10,7 @@ namespace Game
     {
         int SizeX;
         int SizeY;
-        List<Entity> entities = new List<Entity>();
+        List<Entity> roomEntities = new List<Entity>();
         public char[,] Grid;
 
         /// <summary>
@@ -24,6 +24,7 @@ namespace Game
 
             Grid = GenerateNewGrid(SizeX, SizeY);
 
+            // TODO: Change this to remove magic numbers...
             AddWall(new Coordinate(0, 0), new Coordinate(20, 0));
             AddWall(new Coordinate(0, 0), new Coordinate(0, 10));
             AddWall(new Coordinate(0, 9), new Coordinate(20, 9));
@@ -47,7 +48,7 @@ namespace Game
 
             for (int i = 0; i < newGrid.GetLength(0); i++)
             {
-                for(int j = 0; j < newGrid.GetLength(1); j++)
+                for (int j = 0; j < newGrid.GetLength(1); j++)
                 {
                     newGrid[i, j] = '.';
                 }
@@ -64,29 +65,43 @@ namespace Game
         public void AddWall(Coordinate start, Coordinate end)
         {
 
-            if(start.posX == end.posX)
+            if (start.posX == end.posX)
             {
                 for (int i = start.posY; i < end.posY; i++)
                 {
                     Grid[i, start.posX] = '#';
                 }
             }
-            else if(start.posY == end.posY)
+            else if (start.posY == end.posY)
             {
                 for (int i = start.posX; i < end.posX; i++)
                 {
                     Grid[start.posY, i] = '#';
                 }
             }
-            
+
             // TODO: Calculate non-straight walls.
         }
 
+        public void AddRoomEntity(Entity e)
+        {
+            if(e is Character)
+            {
+                roomEntities.Insert(0, e);
+            }
+            else
+            {
+                roomEntities.Add(e);
+            }
+        }
+
+
         public void DrawRoomEntities()
         {
-            foreach(Entity e in entities)
+            foreach (Entity e in roomEntities)
             {
                 // Put each entity on the drawn grid
+                Grid[e.Location.posX, e.Location.posY] = e.Symbol;
 
                 // Draw order.
                 // Room (Walls floor)
@@ -111,6 +126,14 @@ namespace Game
         {
             this.posX = posX;
             this.posY = posY;
+        }
+
+        public bool Equals(Coordinate c)
+        {
+            if (posX == c.posX && posY == c.posY)
+                return true;
+            else
+                return false;
         }
 
     }

@@ -8,22 +8,17 @@ namespace Game
 {
     class Character : MovableEntity
     {
-        public Character()
-        {
+        List<InventoryEntity> Inventory = new List<InventoryEntity>();
+        public bool IsAlive = true;
 
+
+        public Character(char Symbol, Coordinate pos)
+        {
+            this.Symbol = Symbol;
+            Location = pos;
         }
 
-        public string Name(string name)
-        {
-            string[] addName = new string[1];
-            addName[0] = name;
-            return "Your Character name is: " + addName[0];
-        }
-
-        public bool IsAlive()
-        {
-            return true;
-        }
+        
 
     }
 
