@@ -12,6 +12,19 @@ namespace Game
         {
 
         }
+
+        public string Name(string name)
+        {
+            string[] addName = new string[1];
+            addName[0] = name;
+            return "Your Character name is: " + addName[0];
+        }
+
+        public bool IsAlive()
+        {
+            return true;
+        }
+
     }
 
 }
