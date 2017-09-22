@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Player
+    class World
     {
-        public Player()
-        {
-
-        }
+        List<Room> Rooms; // Store a list of the rooms (Procedural generation maybe?)
     }
-
 }

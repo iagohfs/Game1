@@ -10,8 +10,15 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            Player player = new Player();
-            Map map = new Map();
+            Character Player = new Character();
+            Console.WriteLine("Add a character name: ");
+            string input = Console.ReadLine();
+            input = Player.Name(input);
+
+            Console.WriteLine(input);
+
+            Console.ReadLine();
+            
         }
     }
 

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public abstract class Item
+    class InventoryEntity : Entity
     {
-        public abstract int value();
 
     }
 }
