@@ -23,6 +23,11 @@ namespace Game
             SizeY = 10;
 
             Grid = GenerateNewGrid(SizeX, SizeY);
+
+            AddWall(new Coordinate(0, 0), new Coordinate(20, 0));
+            AddWall(new Coordinate(0, 0), new Coordinate(0, 10));
+            AddWall(new Coordinate(0, 9), new Coordinate(20, 9));
+            AddWall(new Coordinate(19, 0), new Coordinate(19, 10));
         }
 
         /// <summary>
@@ -33,6 +38,7 @@ namespace Game
         public Room(int SizeX, int SizeY)
         {
             Grid = GenerateNewGrid(SizeX, SizeY);
+
         }
 
         public char[,] GenerateNewGrid(int SizeX, int SizeY)
@@ -57,6 +63,7 @@ namespace Game
         /// <param name="end"></param>
         public void AddWall(Coordinate start, Coordinate end)
         {
+
             if(start.posX == end.posX)
             {
                 for (int i = start.posY; i < end.posY; i++)
@@ -66,7 +73,7 @@ namespace Game
             }
             else if(start.posY == end.posY)
             {
-                for (int i = start.posY; i < end.posY; i++)
+                for (int i = start.posX; i < end.posX; i++)
                 {
                     Grid[start.posY, i] = '#';
                 }
@@ -80,6 +87,11 @@ namespace Game
             foreach(Entity e in entities)
             {
                 // Put each entity on the drawn grid
+
+                // Draw order.
+                // Room (Walls floor)
+                // Entities (Items, doors)
+                // Characters (Player) The player must be drawn last.
             }
         }
 
@@ -89,7 +101,7 @@ namespace Game
         // Enum for room types?
     }
 
-
+    public enum RoomShape { TShape, Corridor, Circle }
 
     public struct Coordinate
     {

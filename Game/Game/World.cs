@@ -8,16 +8,18 @@ namespace Game
 {
     class World
     {
-        List<Room> Rooms; // Store a list of the rooms (Procedural generation maybe?)
+        
 
         public World()
         {
+            List<Room> Rooms = new List<Room>();
             Room start = new Room();
-            start.AddWall(new Coordinate(0, 0), new Coordinate(10, 0));
-            PrintCurrentRoom(start);
+            Character player = new Character();
+            Rooms.Add(start);
+            DrawCurrentRoom(start);
         }
 
-        public void PrintCurrentRoom(Room r)
+        public void DrawCurrentRoom(Room r)
         {
             for(int i = 0; i < r.Grid.GetLength(0); i++)
             {

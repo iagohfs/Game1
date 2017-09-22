@@ -11,6 +11,8 @@ namespace Game
         // The character that represents the entity
         public char Symbol { get; protected set; }
 
+        public bool IsSolid = true;
+
         public void Draw()
         {
             // Do draw stuff
