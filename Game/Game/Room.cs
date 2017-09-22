@@ -125,8 +125,8 @@ namespace Game
         public Coordinate(int posX, int posY)
         {
             this.posX = posX;
-            this.posY = posY;
-        }
+            this.posY = posY;            
+        }        
 
         public bool Equals(Coordinate c)
         {

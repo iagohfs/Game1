@@ -12,33 +12,55 @@ namespace Game
 
         public World()
         {
+            int Startx = 1, Starty = 1;
             List<Room> Rooms = new List<Room>();
             Room start = new Room();
-            Character player = new Character('@', new Coordinate(1, 1));
+            Character player = new Character('@', new Coordinate(Startx, Starty));
             start.AddRoomEntity(player);
             Rooms.Add(start);
+
             do
             {
+                Console.Clear();
                 start.DrawRoomEntities();
                 DrawCurrentRoom(start);
 
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.W:
-                        player.MoveUp(1);
-                        break;
+                        {
+                            if (start.Grid[player.Location.posX, player.Location.posY - 1] != '#')
+                            {
+                                player.MoveY(-1);
+
+                            }
+                            break;
+                        }
+
                     case ConsoleKey.A:
-                        player.MoveRight(-1);
+                        if (start.Grid[player.Location.posX - 1, player.Location.posY] != '#')
+                        {
+                            player.MoveX(-1);
+
+                        }
                         break;
                     case ConsoleKey.S:
-                        player.MoveUp(-1);
+                        if (start.Grid[player.Location.posX, player.Location.posY + 1] != '#')
+                        {
+                            player.MoveY(1);
+
+                        }
                         break;
                     case ConsoleKey.D:
-                        player.MoveRight(1);
+                        if (start.Grid[player.Location.posX + 1, player.Location.posY] != '#')
+                        {
+                            player.MoveX(1);
+
+                        }
                         break;
                 }
             } while (player.IsAlive);
-            
+
         }
 
         public void DrawCurrentRoom(Room r)

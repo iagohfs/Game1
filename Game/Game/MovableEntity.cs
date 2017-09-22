@@ -13,9 +13,9 @@ namespace Game
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
         /// <returns></returns>
-        public bool MoveUp(int distance) // If you move a negative distance you do down. Reduces the number if methods
-        {
-            
+        public bool MoveY(int distance) // If you move a negative distance you do down. Reduces the number if methods
+        {            
+            Location.posY += distance;
             return true;
         }
 
@@ -24,9 +24,9 @@ namespace Game
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
         /// <returns></returns>
-        public bool MoveRight(int distance)
+        public bool MoveX(int distance)
         {
-
+            Location.posX += distance;
             return true;
         }
     }
