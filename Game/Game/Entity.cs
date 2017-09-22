@@ -13,9 +13,9 @@ namespace Game
 
         public Coordinate Location;
 
-        public bool IsSolid;
+        public bool IsSolid = true;
 
-        public bool IsVisible;
+        public bool IsVisible = true;
 
         public void Draw()
         {

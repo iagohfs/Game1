@@ -22,7 +22,7 @@ namespace Game
             do
             {
                 Console.Clear();
-                start.DrawRoomEntities();
+
                 DrawCurrentRoom(start);
 
                 switch (Console.ReadKey(true).Key)
@@ -73,6 +73,8 @@ namespace Game
                 }
                 Console.WriteLine();
             }
+
+            r.DrawRoomEntities();
         }
     }
 }
