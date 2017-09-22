@@ -45,6 +45,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="InventoryEntity.cs" />
+    <Compile Include="ItemKey.cs" />
     <Compile Include="MovableEntity.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="World.cs" />

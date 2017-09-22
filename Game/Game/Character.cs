@@ -17,7 +17,6 @@ namespace Game
             this.Symbol = Symbol;
             Location = pos;
         }
-
         
 
     }
