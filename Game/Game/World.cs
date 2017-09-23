@@ -16,9 +16,13 @@ namespace Game
             List<Room> Rooms = new List<Room>();
             Room start = new Room();
             Character player = new Character('@', new Coordinate(Startx, Starty));
+            ItemKey key1 = new ItemKey();
+            start.AddRoomEntity(key1);
             start.AddRoomEntity(player);
             Rooms.Add(start);
-
+            start.AddWall(new Coordinate(12, 5), new Coordinate(19, 5));
+            start.AddWall(new Coordinate(12, 5), new Coordinate(12, 9));
+            
             do
             {
                 Console.Clear();
