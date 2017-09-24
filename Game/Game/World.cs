@@ -8,77 +8,49 @@ namespace Game
 {
     class World
     {
-
+        /// <summary>
+        /// The room that the player is currently in.
+        /// </summary>
+        public static Room CurrentRoom { set; get; }
 
         public World()
         {
-            int Startx = 1, Starty = 1;
             List<Room> Rooms = new List<Room>();
             Room start = new Room();
-            Character player = new Character('@', new Coordinate(Startx, Starty));
-            ItemKey key1 = new ItemKey();
-            start.AddRoomEntity(key1);
+            Character player = new Character('@', new Coordinate(1, 1));
             start.AddRoomEntity(player);
             Rooms.Add(start);
-            start.AddWall(new Coordinate(12, 5), new Coordinate(19, 5));
-            start.AddWall(new Coordinate(12, 5), new Coordinate(12, 9));
+            CurrentRoom = start;
+            start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5));
+            start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12));
+
             
+
             do
             {
                 Console.Clear();
 
-                DrawCurrentRoom(start);
+                start.Draw();
 
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.W:
-                        {
-                            if (start.Grid[player.Location.posX, player.Location.posY - 1] != '#')
-                            {
-                                player.MoveY(-1);
-
-                            }
-                            break;
-                        }
+                        player.MoveRow(-1);
+                        break;
 
                     case ConsoleKey.A:
-                        if (start.Grid[player.Location.posX - 1, player.Location.posY] != '#')
-                        {
-                            player.MoveX(-1);
-
-                        }
+                        player.MoveCol(-1);
                         break;
-                    case ConsoleKey.S:
-                        if (start.Grid[player.Location.posX, player.Location.posY + 1] != '#')
-                        {
-                            player.MoveY(1);
 
-                        }
+                    case ConsoleKey.S:
+                        player.MoveRow(1);
                         break;
                     case ConsoleKey.D:
-                        if (start.Grid[player.Location.posX + 1, player.Location.posY] != '#')
-                        {
-                            player.MoveX(1);
-
-                        }
+                        player.MoveCol(1);
                         break;
                 }
             } while (player.IsAlive);
 
-        }
-
-        public void DrawCurrentRoom(Room r)
-        {
-            for (int i = 0; i < r.Grid.GetLength(0); i++)
-            {
-                for (int j = 0; j < r.Grid.GetLength(1); j++)
-                {
-                    Console.Write(r.Grid[i, j]);
-                }
-                Console.WriteLine();
-            }
-
-            r.DrawRoomEntities();
         }
     }
 }

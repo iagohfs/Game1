@@ -13,7 +13,9 @@ namespace Game
 
         public Coordinate Location;
 
-        public bool IsSolid = true;
+        public ConsoleColor Color;
+
+        public bool Collidable = true;
 
         public bool IsVisible = true;
 

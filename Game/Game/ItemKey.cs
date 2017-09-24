@@ -8,19 +8,12 @@ namespace Game
 {
     class ItemKey : Entity
     {
-        Coordinate Key = new Coordinate();
-
         public ItemKey()
         {
-            Location.posX = 7;
-            Location.posY = 7;
+            Location.posCol = 7;
+            Location.posRow = 7;
 
             Symbol = '¥';
         }
-
-        
-
-        
-
     }
 }

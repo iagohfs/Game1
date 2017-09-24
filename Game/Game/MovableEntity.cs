@@ -13,9 +13,10 @@ namespace Game
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
         /// <returns></returns>
-        public bool MoveY(int distance) // If you move a negative distance you do down. Reduces the number if methods
-        {            
-            Location.posY += distance;
+        public bool MoveRow(int distance) // If you move a negative distance you do down. Reduces the number if methods
+        {
+            if (WillCollide(distance, 0))
+                Location.posRow += distance;
             return true;
         }
 
@@ -24,9 +25,23 @@ namespace Game
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
         /// <returns></returns>
-        public bool MoveX(int distance)
+        public bool MoveCol(int distance)
         {
-            Location.posX += distance;
+            if(!WillCollide(0, distance))
+                Location.posCol += distance;
+            return true;
+        }
+
+        /// <summary>
+        /// Returns if the object the MovableEntity is trying to move to is collidable or not.
+        /// </summary>
+        /// <param name="distRow">Distance moved up or down</param>
+        /// <param name="distCol">Distance moved right or left</param>
+        /// <returns></returns>
+        private bool WillCollide(int distRow, int distCol)
+        {
+            if (World.CurrentRoom.Grid[Location.posRow + distRow, Location.posCol + distCol].Collidable)
+                return false;
             return true;
         }
     }

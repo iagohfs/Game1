@@ -6,12 +6,37 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Room
+    class Room : IEntity
     {
         int SizeX;
         int SizeY;
         List<Entity> roomEntities = new List<Entity>();
-        public char[,] Grid;
+
+        // Rewrite with grid of object tiles instead of characters
+        public Entity[,] Grid;
+
+
+        /// <summary>
+        /// Draws the room to the console.
+        /// </summary>
+        public void Draw()
+        {
+            DrawRoomEntities();
+
+            for (int row = 0; row < Grid.GetLength(0); row++)
+            {
+                for (int column = 0; column < Grid.GetLength(1); column++)
+                {
+                    Console.ForegroundColor = Grid[row, column].Color;
+                    Console.Write(Grid[row, column].Symbol);
+                }
+                Console.WriteLine();
+            }
+
+            
+
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
         /// <summary>
         /// Generate a "square" room of size 20x10.
@@ -25,32 +50,32 @@ namespace Game
             Grid = GenerateNewGrid(SizeX, SizeY);
 
             // TODO: Change this to remove magic numbers...
-            AddWall(new Coordinate(0, 0), new Coordinate(20, 0));
-            AddWall(new Coordinate(0, 0), new Coordinate(0, 10));
-            AddWall(new Coordinate(0, 9), new Coordinate(20, 9));
-            AddWall(new Coordinate(19, 0), new Coordinate(19, 10));
+            AddWall(new Coordinate(0, 0), new Coordinate(9, 0));
+            AddWall(new Coordinate(0, 0), new Coordinate(0, 19));
+            AddWall(new Coordinate(0, 19), new Coordinate(9, 19));
+            AddWall(new Coordinate(9, 0), new Coordinate(9, 20));
         }
 
         /// <summary>
         /// Generate a new room.
         /// </summary>
-        /// <param name="SizeX">Width of the room</param>
-        /// <param name="SizeY">Height of the room</param>
-        public Room(int SizeX, int SizeY)
+        /// <param name="sizeY">Height of the room</param>
+        /// <param name="sizeX">Width of the room</param>
+        public Room(int sizeY, int sizeX)
         {
             Grid = GenerateNewGrid(SizeX, SizeY);
 
         }
 
-        public char[,] GenerateNewGrid(int SizeX, int SizeY)
+        public Entity[,] GenerateNewGrid(int sizeY, int sizeX)
         {
-            char[,] newGrid = new char[SizeY, SizeX];
+            Entity[,] newGrid = new Entity[SizeY, SizeX];
 
             for (int i = 0; i < newGrid.GetLength(0); i++)
             {
                 for (int j = 0; j < newGrid.GetLength(1); j++)
                 {
-                    newGrid[i, j] = '.';
+                    newGrid[i, j] = new FloorTile(TileType.Floor);
                 }
             }
 
@@ -58,29 +83,27 @@ namespace Game
         }
 
         /// <summary>
-        /// Generate wall between two coordinates
+        /// Generate wall between two coordinates. Can only generate horizontal or vertical walls.
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
         public void AddWall(Coordinate start, Coordinate end)
         {
 
-            if (start.posX == end.posX)
+            if (start.posCol == end.posCol)
             {
-                for (int i = start.posY; i < end.posY; i++)
+                for (int i = start.posRow; i < end.posRow; i++)
                 {
-                    Grid[i, start.posX] = '#';
+                    Grid[i, start.posCol] = new WallTile();
                 }
             }
-            else if (start.posY == end.posY)
+            else if (start.posRow == end.posRow)
             {
-                for (int i = start.posX; i < end.posX; i++)
+                for (int i = start.posCol; i < end.posCol; i++)
                 {
-                    Grid[start.posY, i] = '#';
+                    Grid[start.posRow, i] = new WallTile();
                 }
             }
-
-            // TODO: Calculate non-straight walls.
         }
 
         public void AddRoomEntity(Entity e)
@@ -101,7 +124,7 @@ namespace Game
             foreach (Entity e in roomEntities)
             {
                 // Put each entity on the drawn grid
-                Grid[e.Location.posX, e.Location.posY] = e.Symbol;
+                Grid[e.Location.posRow, e.Location.posCol] = e;
 
                 // Draw order.
                 // Room (Walls floor)
@@ -110,27 +133,27 @@ namespace Game
             }
         }
 
+        
+
         // Something to store the entities in the current room
         // Ordered list. Keep the player at the lowest index and iterate backwards, to draw the player last.
 
         // Enum for room types?
     }
 
-    public enum RoomShape { TShape, Corridor, Circle }
-
     public struct Coordinate
     {
-        public int posX, posY;
+        public int posCol, posRow;
 
-        public Coordinate(int posX, int posY)
+        public Coordinate(int posRow, int posCol)
         {
-            this.posX = posX;
-            this.posY = posY;            
+            this.posCol = posCol;
+            this.posRow = posRow;            
         }        
 
         public bool Equals(Coordinate c)
         {
-            if (posX == c.posX && posY == c.posY)
+            if (posCol == c.posCol && posRow == c.posRow)
                 return true;
             else
                 return false;

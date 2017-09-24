@@ -16,6 +16,7 @@ namespace Game
         {
             this.Symbol = Symbol;
             Location = pos;
+            Color = ConsoleColor.Green;
         }
         
 
