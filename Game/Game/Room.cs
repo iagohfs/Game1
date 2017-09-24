@@ -12,8 +12,8 @@ namespace Game
         int SizeY;
         List<Entity> roomEntities = new List<Entity>();
 
-        // Rewrite with grid of object tiles instead of characters
         public Entity[,] Grid;
+        public Entity[,] displayGrid;
 
 
         /// <summary>
@@ -21,20 +21,24 @@ namespace Game
         /// </summary>
         public void Draw()
         {
+            // Creates a clone of the room so that we can draw on it instead of the room.
+            displayGrid = (Entity[,])Grid.Clone();
+
+            // Put all the entities in the clone.
             DrawRoomEntities();
 
-            for (int row = 0; row < Grid.GetLength(0); row++)
+            // Draw the clone to the console window.
+            for (int row = 0; row < displayGrid.GetLength(0); row++)
             {
-                for (int column = 0; column < Grid.GetLength(1); column++)
+                for (int column = 0; column < displayGrid.GetLength(1); column++)
                 {
-                    Console.ForegroundColor = Grid[row, column].Color;
-                    Console.Write(Grid[row, column].Symbol);
+                    // Sets the color to the entities specified color and draws it.
+                    Console.ForegroundColor = displayGrid[row, column].Color;
+                    Console.Write(displayGrid[row, column].Symbol);
                 }
                 Console.WriteLine();
             }
-
-            
-
+            // Resets the console color.
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -124,7 +128,7 @@ namespace Game
             foreach (Entity e in roomEntities)
             {
                 // Put each entity on the drawn grid
-                Grid[e.Location.posRow, e.Location.posCol] = e;
+                displayGrid[e.Location.posRow, e.Location.posCol] = e;
 
                 // Draw order.
                 // Room (Walls floor)

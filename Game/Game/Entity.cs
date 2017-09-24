@@ -19,10 +19,7 @@ namespace Game
 
         public bool IsVisible = true;
 
-        public void Draw()
-        {
-            // Do draw stuff
-        }
+        public void Draw() { }
 
 
     }

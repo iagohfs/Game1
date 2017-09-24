@@ -12,7 +12,7 @@ namespace Game
         {
             Location.posCol = 7;
             Location.posRow = 7;
-
+            Color = ConsoleColor.Yellow;
             Symbol = '¥';
         }
     }

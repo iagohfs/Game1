@@ -9,19 +9,19 @@ namespace Game
     public abstract class MovableEntity : Entity
     {
         /// <summary>
-        /// Tries to move the entity upwards.
+        /// Moves the MovableEntity to a new row.
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
         /// <returns></returns>
         public bool MoveRow(int distance) // If you move a negative distance you do down. Reduces the number if methods
         {
-            if (WillCollide(distance, 0))
+            if (!WillCollide(distance, 0))
                 Location.posRow += distance;
             return true;
         }
 
         /// <summary>
-        /// Tries to move the character to the right
+        /// Moves the MovableEntity to a new column.
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
         /// <returns></returns>
@@ -40,9 +40,9 @@ namespace Game
         /// <returns></returns>
         private bool WillCollide(int distRow, int distCol)
         {
-            if (World.CurrentRoom.Grid[Location.posRow + distRow, Location.posCol + distCol].Collidable)
-                return false;
-            return true;
+            if (World.CurrentRoom.displayGrid[Location.posRow + distRow, Location.posCol + distCol].Collidable)
+                return true;
+            return false;
         }
     }
 }
