@@ -12,7 +12,6 @@ namespace Game
         {
             World world = new World();
 
-
             Console.ReadKey();
         }
     }

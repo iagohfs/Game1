@@ -12,11 +12,11 @@ namespace Game
         public bool IsAlive = true;
 
 
-        public Character(char Symbol, Coordinate pos)
+        public Character(char Symbol, Coordinate pos, ConsoleColor characterColor)
         {
             this.Symbol = Symbol;
             Location = pos;
-            Color = ConsoleColor.Green;
+            Color = characterColor;
         }
         
 

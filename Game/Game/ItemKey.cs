@@ -8,12 +8,12 @@ namespace Game
 {
     class ItemKey : Entity
     {
-        public ItemKey()
+        public ItemKey(int keyCol, int keyPos, ConsoleColor keyColor, char keySymb)
         {
-            Location.posCol = 7;
-            Location.posRow = 7;
-            Color = ConsoleColor.Yellow;
-            Symbol = '¥';
+            Location.posCol = keyCol;
+            Location.posRow = keyPos;
+            Color = keyColor;
+            Symbol = keySymb;
         }
     }
 }
