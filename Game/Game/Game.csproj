@@ -8,9 +8,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Game</RootNamespace>
     <AssemblyName>Game</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,9 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Item.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="InventoryEntity.cs" />
+    <Compile Include="ItemKey.cs" />
+    <Compile Include="MovableEntity.cs" />
+    <Compile Include="Room.cs" />
+    <Compile Include="FloorTile.cs" />
+    <Compile Include="WallTile.cs" />
+    <Compile Include="World.cs" />
+    <Compile Include="Character.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
