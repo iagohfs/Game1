@@ -8,6 +8,7 @@ namespace Game
 {
     public abstract class MovableEntity : Entity
     {
+        
         /// <summary>
         /// Moves the MovableEntity to a new row.
         /// </summary>
@@ -41,7 +42,9 @@ namespace Game
         private bool WillCollide(int distRow, int distCol)
         {
             if (World.CurrentRoom.displayGrid[Location.posRow + distRow, Location.posCol + distCol].Collidable)
+            {
                 return true;
+            }               
             return false;
         }
     }
