@@ -8,6 +8,11 @@ namespace Game
 {
     class InventoryEntity : Entity
     {
-
+        public new void Draw()
+        {
+            Console.ForegroundColor = Color;
+            Console.WriteLine(Symbol);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Game
         int SizeY;
         List<Entity> roomEntities = new List<Entity>();
 
-        public Entity[,] Grid;
+        Entity[,] Grid;
         public Entity[,] displayGrid;
 
 
@@ -32,14 +32,10 @@ namespace Game
             {
                 for (int column = 0; column < displayGrid.GetLength(1); column++)
                 {
-                    // Sets the color to the entities specified color and draws it.
-                    Console.ForegroundColor = displayGrid[row, column].Color;
-                    Console.Write(displayGrid[row, column].Symbol);
+                    displayGrid[row, column].Draw();
                 }
                 Console.WriteLine();
             }
-            // Resets the console color.
-            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -125,18 +121,26 @@ namespace Game
 
         public void DrawRoomEntities()
         {
-            foreach (Entity e in roomEntities)
+            for(int i = roomEntities.Count() - 1; i >= 0; i--)
             {
                 // Put each entity on the drawn grid
-                displayGrid[e.Location.posRow, e.Location.posCol] = e;
-
+                displayGrid[roomEntities[i].Location.posRow, roomEntities[i].Location.posCol] = roomEntities[i];
+            }
                 // Draw order.
                 // Room (Walls floor)
                 // Entities (Items, doors)
                 // Characters (Player) The player must be drawn last.
-            }
         }
 
+        public List<Entity> GetRoomEntities()
+        {
+            return roomEntities;
+        }
+
+        public void RemoveRoomEntity(Entity e)
+        {
+            roomEntities.Remove(e);
+        }
         
 
         // Something to store the entities in the current room
@@ -155,12 +159,45 @@ namespace Game
             this.posRow = posRow;            
         }        
 
+        /// <summary>
+        /// Checks if the coordinate is in the same location.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
         public bool Equals(Coordinate c)
         {
             if (posCol == c.posCol && posRow == c.posRow)
                 return true;
             else
                 return false;
+        }
+
+        /// <summary>
+        /// Checks if the coordinate is adjacent.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public bool IsAdjacent(Coordinate c)
+        {
+
+            if(c.posCol == posCol - 1 && c.posRow == posRow)
+            {
+                return true;
+            }
+            else if(c.posCol == posCol + 1 && c.posRow == posRow)
+            {
+                return true;
+            }
+            else if(c.posCol == posCol && c.posRow == posRow - 1)
+            {
+                return true;
+            }
+            else if(c.posCol == posCol && c.posRow == posRow + 1)
+            {
+                return true;
+            }
+
+            return false;
         }
 
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class ItemKey : Entity
+    class ItemKey : Entity, ICollectable
     {
         public ItemKey(int keyCol, int keyPos, ConsoleColor keyColor, char keySymb)
         {
@@ -14,6 +14,18 @@ namespace Game
             Location.posRow = keyPos;
             Color = keyColor;
             Symbol = keySymb;
+            Collidable = false;
+            IsVisible = true;
+        }
+
+        /// <summary>
+        /// Adds the item to the selected players inventory. (Not implemented, will throw exception.)
+        /// </summary>
+        /// <param name="c">The player that the item will added to.</param>
+        /// <returns></returns>
+        public bool AddToInventory(Character c)
+        {
+            throw new NotImplementedException();
         }
     }
 }

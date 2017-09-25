@@ -18,16 +18,18 @@ namespace Game
             List<Room> Rooms = new List<Room>();
             Room start = new Room();
             Character player = new Character('@', new Coordinate(1, 1), ConsoleColor.Green);
-
+            // Add the player to the list of entities in the room
             start.AddRoomEntity(player);
+            // Add the room to the list of rooms.
             Rooms.Add(start);
+            // Set the room as the current room, needed to access it from other places.
             CurrentRoom = start;
 
             start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5));
             start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12));
 
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
-            ObjectDoor door1 = new ObjectDoor(14, 5, ConsoleColor.Red, 'D');
+            Door door1 = new Door(14, 5, ConsoleColor.Red);
 
             CurrentRoom.AddRoomEntity(yellowKey);
             CurrentRoom.AddRoomEntity(door1);
@@ -53,6 +55,7 @@ namespace Game
                 Console.Clear();
 
                 start.Draw();
+                player.DrawInventory();
 
                 switch (Console.ReadKey(true).Key)
                 {
@@ -71,6 +74,10 @@ namespace Game
                         player.MoveCol(1);
                         break;
                 }
+
+                // Checks if there are any items that can be picked up.
+                player.PickupItems();
+
             } while (player.IsAlive);
 
         }

@@ -45,11 +45,13 @@
   <ItemGroup>
     <Compile Include="EnemyEntity.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="ICollectable.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="IInteractable.cs" />
     <Compile Include="InventoryEntity.cs" />
     <Compile Include="ItemKey.cs" />
     <Compile Include="MovableEntity.cs" />
-    <Compile Include="ObjectDoor.cs" />
+    <Compile Include="Door.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="FloorTile.cs" />
     <Compile Include="WallTile.cs" />
