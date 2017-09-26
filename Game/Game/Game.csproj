@@ -50,6 +50,7 @@
     <Compile Include="IInteractable.cs" />
     <Compile Include="InventoryEntity.cs" />
     <Compile Include="ItemKey.cs" />
+    <Compile Include="Lever.cs" />
     <Compile Include="MovableEntity.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="Room.cs" />

@@ -9,7 +9,11 @@ namespace Game
     class Character : MovableEntity
     {
         List<Entity> Inventory = new List<Entity>();
+        public List<ItemKey> PlayerKeys = new List<ItemKey>();
+
         public bool IsAlive = true;
+
+
 
 
         public Character(char Symbol, Coordinate pos, ConsoleColor characterColor)
@@ -23,17 +27,26 @@ namespace Game
         {
             Entity eRef = null;
 
-            foreach(Entity e in World.CurrentRoom.GetRoomEntities())
+            foreach (Entity e in World.CurrentRoom.GetRoomEntities())
             {
-                if(Location.Equals(e.Location) && e is ICollectable)
+                if (Location.Equals(e.Location) && e is ICollectable)
                 {
-                    Inventory.Add(e);
-                    eRef = e;
+                    if(e is ItemKey)
+                    {
+                        PlayerKeys.Add((ItemKey)e);
+                        eRef = e;
+                    }
+                    else
+                    {
+                        Inventory.Add(e);
+                        eRef = e;
+                    }                    
                 }
             }
             World.CurrentRoom.GetRoomEntities().Remove(eRef);
             return true;
         }
+
 
         public void DrawInventory()
         {
@@ -43,9 +56,18 @@ namespace Game
             {
                 e.Draw();
             }
+            foreach (Entity e in PlayerKeys)
+            {
+                e.Draw();
+            }
             Console.WriteLine();
         }
-        
+
+        public List<Entity> GetInventory()
+        {
+            return Inventory;
+        }
+
 
     }
 

@@ -24,20 +24,30 @@ namespace Game
             Symbol = 'D';
         }
 
-        public bool Interact() { return true; }
+        public bool Interact()
+        {
+            
+            return true;
+        }
 
         /// <summary>
         /// Opens the door if the key fits.
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
+
         public bool Interact(ItemKey Key)
         {
             if (this.Key.Equals(Key))
             {
                 IsLocked = false;
+                IsVisible = true;
+                Color = ConsoleColor.White;
+                Collidable = false;
             }
             return true;
         }
+
+        
     }
 }
