@@ -106,6 +106,10 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// Adds an entity to the rooms list of entities.
+        /// </summary>
+        /// <param name="e"></param>
         public void AddRoomEntity(Entity e)
         {
             if(e is Character)
@@ -118,7 +122,9 @@ namespace Game
             }
         }
 
-
+        /// <summary>
+        /// Draws all the entities in the rooms list of entities.
+        /// </summary>
         public void DrawRoomEntities()
         {
             for(int i = roomEntities.Count() - 1; i >= 0; i--)
@@ -132,6 +138,10 @@ namespace Game
                 // Characters (Player) The player must be drawn last.
         }
 
+        /// <summary>
+        /// Returns a list of all entites in the room.
+        /// </summary>
+        /// <returns></returns>
         public List<Entity> GetRoomEntities()
         {
             return roomEntities;
@@ -149,6 +159,9 @@ namespace Game
         // Enum for room types?
     }
 
+    /// <summary>
+    /// Location on a 2D grid.
+    /// </summary>
     public struct Coordinate
     {
         public int posCol, posRow;
