@@ -8,6 +8,11 @@ namespace Game
 {
     class FloorTile : Entity
     {
+        
+        /// <summary>
+        /// What type the Floortile is.
+        /// </summary>
+        public TileType FloorType { get; set; }
 
         /// <summary>
         /// Generates a RoomTile entity. Placed in a Roomgrid to build a map.
@@ -22,12 +27,21 @@ namespace Game
                     IsVisible = false;
                     Symbol = '.';
                     Color = ConsoleColor.White;
+                    FloorType = TileType.Floor;
                     break;
                 case TileType.Pit:
                     Collidable = false;
                     IsVisible = false;
                     Symbol = ' ';
                     Color = ConsoleColor.Gray;
+                    FloorType = TileType.Pit;
+                    break;
+                case TileType.Spike:
+                    Collidable = false;
+                    IsVisible = false;
+                    Symbol = '^';
+                    Color = ConsoleColor.Red;
+                    FloorType = TileType.Spike;
                     break;
             }
         }
@@ -36,5 +50,5 @@ namespace Game
     /// <summary>
     /// What properties the FloorTile will have
     /// </summary>
-    public enum TileType { Floor, Pit }
+    public enum TileType { Floor, Pit, Spike }
 }

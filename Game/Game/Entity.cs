@@ -21,9 +21,19 @@ namespace Game
 
         public void Draw()
         {
-            Console.ForegroundColor = Color;
-            Console.Write(Symbol);
-            Console.ForegroundColor = ConsoleColor.White;
+            if (IsVisible)
+            {
+                Console.ForegroundColor = Color;
+                Console.Write(Symbol);
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write('?');
+                Console.ResetColor();
+            }
+            
         }
 
     }

@@ -56,7 +56,7 @@ namespace Game
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
-
+                
                 start.Draw();
                 player.DrawInventory();
 
@@ -119,6 +119,7 @@ namespace Game
 
                 // Checks if there are any items that can be picked up.
                 player.PickupItems();
+                player.UpdateVisible();
 
             } while (player.IsAlive);
 

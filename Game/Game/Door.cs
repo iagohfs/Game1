@@ -35,7 +35,6 @@ namespace Game
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
-
         public bool Interact(ItemKey Key)
         {
             if (this.Key.Equals(Key))

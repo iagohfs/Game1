@@ -15,7 +15,12 @@ namespace Game
 
 
 
-
+        /// <summary>
+        /// Creates a Character entity.
+        /// </summary>
+        /// <param name="Symbol">What symbol will represent the character on the map.</param>
+        /// <param name="pos">Starting position of the character.</param>
+        /// <param name="characterColor">What color the character will have.</param>
         public Character(char Symbol, Coordinate pos, ConsoleColor characterColor)
         {
             this.Symbol = Symbol;
@@ -23,6 +28,10 @@ namespace Game
             Color = characterColor;
         }
 
+        /// <summary>
+        /// Checks if the player is standing on an item and then picks it up.
+        /// </summary>
+        /// <returns></returns>
         public bool PickupItems()
         {
             Entity eRef = null;
@@ -47,7 +56,9 @@ namespace Game
             return true;
         }
 
-
+        /// <summary>
+        /// Draws the inventory to the console.
+        /// </summary>
         public void DrawInventory()
         {
             Console.WriteLine("Inventory:");
@@ -63,9 +74,29 @@ namespace Game
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Returns the players inventory.
+        /// </summary>
+        /// <returns></returns>
         public List<Entity> GetInventory()
         {
             return Inventory;
+        }
+
+        /// <summary>
+        /// Updates what is visible to the player.
+        /// </summary>
+        public void UpdateVisible()
+        {
+            Entity[,] room = World.CurrentRoom.displayGrid;
+
+            for(int i = Location.posRow - 1; i <= Location.posRow + 1; i++)
+            {
+                for(int j = Location.posCol - 1; j <= Location.posCol + 1; j++)
+                {
+                    room[i, j].IsVisible = true;
+                }
+            }
         }
 
 

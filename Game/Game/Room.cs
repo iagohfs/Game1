@@ -135,6 +135,7 @@ namespace Game
                 // Draw order.
                 // Room (Walls floor)
                 // Entities (Items, doors)
+                // Monsters
                 // Characters (Player) The player must be drawn last.
         }
 
@@ -147,16 +148,14 @@ namespace Game
             return roomEntities;
         }
 
+        /// <summary>
+        /// Removes the entity from list.
+        /// </summary>
+        /// <param name="e"></param>
         public void RemoveRoomEntity(Entity e)
         {
             roomEntities.Remove(e);
         }
-        
-
-        // Something to store the entities in the current room
-        // Ordered list. Keep the player at the lowest index and iterate backwards, to draw the player last.
-
-        // Enum for room types?
     }
 
     /// <summary>
