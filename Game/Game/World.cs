@@ -54,7 +54,8 @@ namespace Game
             int tilesToMove = 1;
             do
             {
-                Console.Clear();
+                Console.CursorLeft = 0;
+                Console.CursorTop = 0;
 
                 start.Draw();
                 player.DrawInventory();
