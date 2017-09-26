@@ -13,24 +13,33 @@ namespace Game
         /// Moves the MovableEntity to a new row.
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
-        /// <returns></returns>
+        /// <returns>Returns true if the movement was successful.</returns>
         public bool MoveRow(int distance) // If you move a negative distance you do down. Reduces the number if methods
         {
             if (!WillCollide(distance, 0))
+            {
                 Location.posRow += distance;
-            return true;
+                return true;
+            }
+
+            return false;
+
         }
 
         /// <summary>
         /// Moves the MovableEntity to a new column.
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
-        /// <returns></returns>
+        /// <returns>Returns true if the movement was successful.</returns>
         public bool MoveCol(int distance)
         {
             if(!WillCollide(0, distance))
+            {
                 Location.posCol += distance;
-            return true;
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
