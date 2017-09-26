@@ -19,7 +19,12 @@ namespace Game
 
         public bool IsVisible = true;
 
-        public void Draw() { }
+        public void Draw()
+        {
+            Console.ForegroundColor = Color;
+            Console.Write(Symbol);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
     }
 }

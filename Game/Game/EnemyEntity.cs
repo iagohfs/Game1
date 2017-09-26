@@ -17,6 +17,55 @@ namespace Game
             Location.posRow = enemRow;
             Color = enemColor;
             Symbol = enemSymb;
+            Collidable = false;
+            IsVisible = true;
+
         }
+
+        public bool Move(int distance)
+        {
+            if (IsAlive)
+            {
+                /*
+                if (MoveCol(distance))
+                {
+                    return true;
+                }
+                else if (MoveRow(-distance))
+                {
+                    return true;
+                }
+                else if (MoveRow(-distance))
+                {
+                    return true;
+                }
+                else if (MoveCol(-distance))
+                {
+                    return true;
+                }*/
+
+                if (MoveCol(distance))
+                {
+                    if (MoveRow(distance))
+                    {
+
+                    }
+                    else
+                    {
+                        MoveRow(-distance);
+                    }
+                }
+                else
+                {
+                    MoveCol(-distance);
+                }
+
+                return false;
+
+            }
+
+            return false;
+        }
+
     }
 }
