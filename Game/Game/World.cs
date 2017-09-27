@@ -17,7 +17,7 @@ namespace Game
         {
             List<Room> Rooms = new List<Room>();
             Room start = new Room();
-            Character player = new Character('@', new Coordinate(1, 1), ConsoleColor.Green);
+            Player player = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
             start.AddRoomEntity(player);
 
             // Add the room to the list of rooms.
@@ -27,24 +27,26 @@ namespace Game
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
-            Lever lever1 = new Lever(18, 2, ConsoleColor.Magenta, '¬');
+            Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
+            Lever lever2 = new Lever(new Coordinate(2, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall3");
             Door doorRed = new Door(14, 5, ConsoleColor.Red);
+
 
             CurrentRoom.AddRoomEntity(yellowKey);
             CurrentRoom.AddRoomEntity(doorRed);
             CurrentRoom.AddRoomEntity(redKey);
-            CurrentRoom.AddRoomEntity(lever1);
-
+            // CurrentRoom.AddRoomEntity(lever1);
+            // CurrentRoom.AddRoomEntity(lever2);
             doorRed.Key = redKey;
 
-            start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1");
-            start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2");
+            start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1", true);
+            start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2", true);
 
-            start.AddWall(new Coordinate(5, 12), new Coordinate(5, 19), "Wall3");
-            start.AddWall(new Coordinate(7, 13), new Coordinate(7, 17), "Wall4");
+            start.AddWall(new Coordinate(5, 12), new Coordinate(5, 19), "Wall3", true);
+            start.AddWall(new Coordinate(7, 13), new Coordinate(7, 17), "Wall4", true);
 
-            start.AddWall(new Coordinate(5, 1), new Coordinate(5, 8), "Wall5");
-            start.AddWall(new Coordinate(5, 8), new Coordinate(9, 8), "Wall6");
+            start.AddWall(new Coordinate(5, 1), new Coordinate(5, 8), "Wall5", true);
+            start.AddWall(new Coordinate(5, 8), new Coordinate(9, 8), "Wall6", true);
 
 
             EnemyEntity enemyRoom1 = new EnemyEntity(16, 8, ConsoleColor.DarkGray, '¶');
@@ -88,31 +90,7 @@ namespace Game
                         player.MoveEast(1);
                         break;
                     case ConsoleKey.E:
-
-                        foreach (Entity e in CurrentRoom.GetRoomEntities())
-                        {
-                            if (e.Location.IsAdjacent(player.Location))
-                            {
-                                if (e is Door)
-                                {
-                                    Door temp = (Door)e;
-
-                                    if (player.Keyring.Contains(temp.Key))
-                                    {
-                                        temp.Interact(temp.Key);
-                                        player.Keyring.Remove(temp.Key);
-
-                                    }
-                                }
-                                if (e is Lever)
-                                {
-                                    //Interact with lever and delete wall.
-                                }
-                            }
-
-                        }
-
-
+                        player.Interact();
                         break;
                 }
 

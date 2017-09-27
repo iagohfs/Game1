@@ -53,6 +53,7 @@
     <Compile Include="Lever.cs" />
     <Compile Include="MovableEntity.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="FloorTile.cs" />
     <Compile Include="TrapTile.cs" />

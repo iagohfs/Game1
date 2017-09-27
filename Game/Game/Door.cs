@@ -25,29 +25,20 @@ namespace Game
             IsVisible = false;
         }
 
-        public bool Interact()
+        public bool OnInteract(Player player)
         {
-            
-            return true;
-        }
-
-        /// <summary>
-        /// Opens the door if the key fits.
-        /// </summary>
-        /// <param name="Key"></param>
-        /// <returns></returns>
-        public bool Interact(ItemKey Key)
-        {
-            if (this.Key.Equals(Key))
+            if (player.Keyring.Contains(Key))
             {
                 IsLocked = false;
-                IsVisible = true;
-                Color = ConsoleColor.White;
                 Collidable = false;
-            }
-            return true;
-        }
+                Color = ConsoleColor.White;
 
-        
+                player.Keyring.Remove(Key);
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }

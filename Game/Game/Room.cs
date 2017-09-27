@@ -87,10 +87,10 @@ namespace Game
 
             Grid = GenerateNewGrid(SizeX, SizeY);
 
-            AddWall(new Coordinate(0, 0), new Coordinate(9, 0), "WestWall");
-            AddWall(new Coordinate(0, 0), new Coordinate(0, 19), "NorthWall");
-            AddWall(new Coordinate(0, 19), new Coordinate(9, 19), "EastWall");
-            AddWall(new Coordinate(9, 0), new Coordinate(9, 20), "SouthWall");
+            AddWall(new Coordinate(0, 0), new Coordinate(9, 0), "WestWall", true);
+            AddWall(new Coordinate(0, 0), new Coordinate(0, 19), "NorthWall", true);
+            AddWall(new Coordinate(0, 19), new Coordinate(9, 19), "EastWall", true);
+            AddWall(new Coordinate(9, 0), new Coordinate(9, 20), "SouthWall", true);
         }
 
         /// <summary>
@@ -118,34 +118,19 @@ namespace Game
             return newGrid;
         }
 
-        /// <summary>
-        /// Generate wall between two coordinates. Can only generate horizontal or vertical walls.
-        /// </summary>
-        /// <param name="Start"></param>
-        /// <param name="End"></param>
-        public void AddWall(Coordinate Start, Coordinate End)
+        public void AddWall(Coordinate start, Coordinate end, String id, bool draw)
         {
-            /*
-            if (start.posCol == end.posCol)
-            {
-                for (int i = start.posRow; i < end.posRow; i++)
-                {
-                    Grid[i, start.posCol] = new WallTile();
-                }
-            }
-            else if (start.posRow == end.posRow)
-            {
-                for (int i = start.posCol; i < end.posCol; i++)
-                {
-                    Grid[start.posRow, i] = new WallTile();
-                }
-            }
-            */
+            roomWalls.Add(new Wall(start, end, id, draw));
         }
 
-        public void AddWall(Coordinate Start, Coordinate End, String ID)
+        public void SetWallDraw(String id)
         {
-            roomWalls.Add(new Wall(Start, End, ID));
+            throw new NotImplementedException();
+        }
+
+        public void RemoveWall(String ID)
+        {
+            roomWalls.RemoveAll(Wall => Wall.ID == ID);
         }
 
         /// <summary>
@@ -240,19 +225,21 @@ namespace Game
     }
 
     /// <summary>
-    /// Contains the Start and End coordinates for the wall as well as its ID.
+    /// Contains the Start and End coordinates for the wall as well as its unique ID.
     /// </summary>
     public struct Wall
     {
         public Coordinate Start, End;
         public String ID;
+        public bool Draw;
 
 
-        public Wall(Coordinate Start, Coordinate End, String ID)
+        public Wall(Coordinate start, Coordinate end, String id, bool draw)
         {
-            this.Start = Start;
-            this.End = End;
-            this.ID = ID;
+            Start = start;
+            End = end;
+            ID = id;
+            Draw = draw;
         }
     }
 
