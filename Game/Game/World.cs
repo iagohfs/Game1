@@ -48,7 +48,7 @@ namespace Game
             start.AddWall(new Coordinate(5, 8), new Coordinate(9, 8));
 
 
-            EnemyEntity enemyRoom1 = new EnemyEntity(16, 8, ConsoleColor.DarkGray, '¶');
+            EnemyEntity enemyRoom1 = new EnemyEntity(17, 8, ConsoleColor.DarkGray, '¶');
 
             CurrentRoom.AddRoomEntity(enemyRoom1);
             int tilesToMove = 1;
