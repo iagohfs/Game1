@@ -22,6 +22,7 @@ namespace Game
             Location.posRow = doorRow;
             Color = doorColor;
             Symbol = 'D';
+            IsVisible = false;
         }
 
         public bool Interact()

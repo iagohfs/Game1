@@ -9,7 +9,7 @@ namespace Game
     class Character : MovableEntity
     {
         List<Entity> Inventory = new List<Entity>();
-        public List<ItemKey> PlayerKeys = new List<ItemKey>();
+        public List<ItemKey> Keyring = new List<ItemKey>();
 
         public bool IsAlive = true;
 
@@ -42,7 +42,7 @@ namespace Game
                 {
                     if(e is ItemKey)
                     {
-                        PlayerKeys.Add((ItemKey)e);
+                        Keyring.Add((ItemKey)e);
                         eRef = e;
                     }
                     else
@@ -61,17 +61,22 @@ namespace Game
         /// </summary>
         public void DrawInventory()
         {
-            Console.WriteLine("Inventory:");
-            Console.WriteLine("***********");
+            Console.Write("Inventory: ");
             foreach (Entity e in Inventory)
             {
                 e.Draw();
             }
-            foreach (Entity e in PlayerKeys)
+            Console.Write("\n");
+            Console.WriteLine();
+            
+
+            Console.Write("Keys: ");
+            foreach (Entity e in Keyring)
             {
                 e.Draw();
             }
-            Console.WriteLine();
+            Console.Write("\n");
+            
         }
 
         /// <summary>

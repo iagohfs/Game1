@@ -55,6 +55,7 @@
     <Compile Include="Door.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="FloorTile.cs" />
+    <Compile Include="TrapTile.cs" />
     <Compile Include="WallTile.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Character.cs" />

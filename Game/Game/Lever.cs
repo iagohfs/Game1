@@ -15,7 +15,7 @@ namespace Game
             Color = LevColor;
             Symbol = Symb;
             Collidable = false;
-            IsVisible = true;
+            IsVisible = false;
         }
 
         /// <summary>

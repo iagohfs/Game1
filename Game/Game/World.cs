@@ -18,11 +18,10 @@ namespace Game
             List<Room> Rooms = new List<Room>();
             Room start = new Room();
             Character player = new Character('@', new Coordinate(1, 1), ConsoleColor.Green);
-            // Add the player to the list of entities in the room
             start.AddRoomEntity(player);
+
             // Add the room to the list of rooms.
             Rooms.Add(start);
-            // Set the room as the current room, needed to access it from other places.
             CurrentRoom = start;
 
 
@@ -38,14 +37,14 @@ namespace Game
 
             doorRed.Key = redKey;
 
-            start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5));
-            start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12));
+            start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1");
+            start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2");
 
-            start.AddWall(new Coordinate(5, 12), new Coordinate(5, 19));
-            start.AddWall(new Coordinate(7, 13), new Coordinate(7, 17));
+            start.AddWall(new Coordinate(5, 12), new Coordinate(5, 19), "Wall3");
+            start.AddWall(new Coordinate(7, 13), new Coordinate(7, 17), "Wall4");
 
-            start.AddWall(new Coordinate(5, 1), new Coordinate(5, 8));
-            start.AddWall(new Coordinate(5, 8), new Coordinate(9, 8));
+            start.AddWall(new Coordinate(5, 1), new Coordinate(5, 8), "Wall5");
+            start.AddWall(new Coordinate(5, 8), new Coordinate(9, 8), "Wall6");
 
 
             EnemyEntity enemyRoom1 = new EnemyEntity(16, 8, ConsoleColor.DarkGray, '¶');
@@ -75,18 +74,18 @@ namespace Game
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.W:
-                        player.MoveRow(-1);
+                        player.MoveSouth(-1);
                         break;
 
                     case ConsoleKey.A:
-                        player.MoveCol(-1);
+                        player.MoveEast(-1);
                         break;
 
                     case ConsoleKey.S:
-                        player.MoveRow(1);
+                        player.MoveSouth(1);
                         break;
                     case ConsoleKey.D:
-                        player.MoveCol(1);
+                        player.MoveEast(1);
                         break;
                     case ConsoleKey.E:
 
@@ -98,10 +97,10 @@ namespace Game
                                 {
                                     Door temp = (Door)e;
 
-                                    if (player.PlayerKeys.Contains(temp.Key))
+                                    if (player.Keyring.Contains(temp.Key))
                                     {
                                         temp.Interact(temp.Key);
-                                        player.PlayerKeys.Remove(temp.Key);
+                                        player.Keyring.Remove(temp.Key);
 
                                     }
                                 }

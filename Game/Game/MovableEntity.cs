@@ -14,7 +14,7 @@ namespace Game
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
         /// <returns>Returns true if the movement was successful.</returns>
-        public bool MoveRow(int distance) // If you move a negative distance you do down. Reduces the number if methods
+        public bool MoveSouth(int distance)
         {
             if (!WillCollide(distance, 0))
             {
@@ -31,7 +31,7 @@ namespace Game
         /// </summary>
         /// <param name="distance">Distance moved in chosen direction. Negative numbers are opposite direction.</param>
         /// <returns>Returns true if the movement was successful.</returns>
-        public bool MoveCol(int distance)
+        public bool MoveEast(int distance)
         {
             if(!WillCollide(0, distance))
             {

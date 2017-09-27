@@ -44,20 +44,20 @@ namespace Game
                     return true;
                 }*/
 
-                if (MoveCol(distance))
+                if (MoveEast(distance))
                 {
-                    if (MoveRow(distance))
+                    if (MoveSouth(distance))
                     {
 
                     }
                     else
                     {
-                        MoveRow(-distance);
+                        MoveSouth(-distance);
                     }
                 }
                 else
                 {
-                    MoveCol(-distance);
+                    MoveEast(-distance);
                 }
 
                 return false;
