@@ -38,8 +38,9 @@ namespace Game
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
 
             Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
-            Lever lever2 = new Lever(new Coordinate(8, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall9");
-            Lever lever3 = new Lever(new Coordinate(1, 11), ConsoleColor.Yellow, CurrentRoom.RemoveWall, "Wall9");
+            Lever lever2 = new Lever(new Coordinate(2, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall3");
+          
+            Door doorRed = new Door(14, 5, ConsoleColor.Red, redKey);
 
             CurrentRoom.AddRoomEntity(coin1);
             CurrentRoom.AddRoomEntity(coin2);
@@ -51,11 +52,8 @@ namespace Game
             CurrentRoom.AddRoomEntity(doorGold);
             CurrentRoom.AddRoomEntity(redKey);
 
-            CurrentRoom.AddRoomEntity(enemyRoom1);
-            // CurrentRoom.AddRoomEntity(lever1);
-            // CurrentRoom.AddRoomEntity(lever2);
-
-            doorRed.Key = redKey;
+            CurrentRoom.AddRoomEntity(lever1);
+            CurrentRoom.AddRoomEntity(lever2);
 
             start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1", true);
             start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2", true);

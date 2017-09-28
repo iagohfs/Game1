@@ -13,9 +13,6 @@ namespace Game
 
         public Player(char symbol, Coordinate location, ConsoleColor color) : base(symbol, location, color)
         {
-            Symbol = symbol;
-            Location = location;
-            Color = color;
             Collidable = true;
             IsVisible = true;
         }
@@ -66,7 +63,7 @@ namespace Game
 
                     if(entity is TrapTile)
                     {
-                        // Do thing 
+                        // Reduce score by trap damage amount.
                     }
 
                     
@@ -76,7 +73,6 @@ namespace Game
 
             if(eRef != null)
                 World.CurrentRoom.GetRoomEntities().Remove(eRef);
-
             return true;
         }
 
