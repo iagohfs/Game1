@@ -33,7 +33,7 @@ namespace Game
             {
                 if (X)
                 {
-                    MoveCol(distance);
+                    MoveEast(distance);
                     if (distX != Xmax)
                     {
                         distX++;
@@ -46,7 +46,7 @@ namespace Game
                 }
                 else if (!X)
                 {
-                    MoveCol(-distance);
+                    MoveEast(-distance);
                     if (distX != Xmin)
                     {
                         distX--;
@@ -60,7 +60,7 @@ namespace Game
                 else if (Y)
                 {
 
-                    MoveRow(-distance);
+                    MoveSouth(-distance);
                     if (distY != Ymax)
 
                     {
@@ -76,7 +76,7 @@ namespace Game
                 else if (!Y)
                 {
 
-                    MoveRow(distance);
+                    MoveSouth(distance);
                     if (distY != Ymin)
                     {
                         distY--;
