@@ -29,18 +29,22 @@ namespace Game
             Coin coin2 = new Coin(2, 6, ConsoleColor.Yellow, 'o', 100);
             Coin coin3 = new Coin(1, 13, ConsoleColor.Yellow, 'o', 100);
             Coin superCoin = new Coin(8, 1, ConsoleColor.Red, 'O', 250);
- 
+
             EnemyEntity enemyRoom1 = new EnemyEntity(17, 8, ConsoleColor.DarkGray, '¶');
 
-            Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
-            Lever lever2 = new Lever(new Coordinate(2, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall3");
+            CurrentRoom.AddRoomEntity(enemyRoom1);
 
+            Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
+            Lever lever2 = new Lever(new Coordinate(8, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall9");
+            Lever lever3 = new Lever(new Coordinate(1, 10), ConsoleColor.Yellow, CurrentRoom.RemoveWall, "Wall7");
+
+            CurrentRoom.AddTrap(new Coordinate(5, 9), new Coordinate(5, 12), "Spike", true);
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
 
             Door doorRed = new Door(14, 5, ConsoleColor.Red, redKey);
-            Door doorGold = new Door(9, 10, ConsoleColor.Yellow, yellowKey);
+            Door doorGold = new Door(10, 8, ConsoleColor.Yellow, yellowKey);
 
             CurrentRoom.AddRoomEntity(coin1);
             CurrentRoom.AddRoomEntity(coin2);
@@ -54,6 +58,9 @@ namespace Game
 
             CurrentRoom.AddRoomEntity(lever1);
             CurrentRoom.AddRoomEntity(lever2);
+            CurrentRoom.AddRoomEntity(lever3);
+
+            
 
             start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1", true);
             start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2", true);
@@ -68,8 +75,6 @@ namespace Game
             start.AddWall(new Coordinate(1, 12), new Coordinate(4, 12), "Wall8", true);
             start.AddWall(new Coordinate(3, 9), new Coordinate(3, 12), "Wall9", true);
 
-
-
             Score += 1000;
 
             int tilesToMove = 1;
@@ -80,10 +85,7 @@ namespace Game
 
                 start.Draw();
                 player.DrawInventory();
-
-
-                Console.Write("Player Score: " + Score);
-                Console.Write(" ");
+               
 
                 if (player.Location.Equals(enemyRoom1.Location))
                 {

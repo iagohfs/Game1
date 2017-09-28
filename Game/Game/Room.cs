@@ -13,6 +13,7 @@ namespace Game
         List<Entity> roomEntities = new List<Entity>();
         List<Character> roomCharacters = new List<Character>();
         List<Wall> roomWalls = new List<Wall>();
+        List<Wall> roomTraps = new List<Wall>();
 
         Entity[,] Grid;
         public Entity[,] displayGrid;
@@ -25,8 +26,9 @@ namespace Game
         {
             displayGrid = (Entity[,])Grid.Clone();
 
-
             DrawWalls();
+
+            DrawTrap();
 
             DrawRoomEntities();
 
@@ -73,6 +75,26 @@ namespace Game
                     }
                 }
 
+            }
+        }
+
+        public void DrawTrap()
+        {
+            foreach(Wall wall in roomTraps)
+            {
+                if (wall.Start.posCol == wall.End.posCol)
+                {
+                    for (int i = wall.Start.posRow; i < wall.End.posRow; i++)
+                    {
+                        displayGrid[i, wall.Start.posCol] = new TrapTile(TrapType.Spike);                    }
+                }
+                else if (wall.Start.posRow == wall.End.posRow)
+                {
+                    for (int i = wall.Start.posCol; i < wall.End.posCol; i++)
+                    {
+                        displayGrid[wall.Start.posRow, i] = new TrapTile(TrapType.Spike);
+                    }
+                }
             }
         }
 
@@ -132,6 +154,13 @@ namespace Game
         {
             roomWalls.RemoveAll(Wall => Wall.ID == ID);
         }
+
+        public void AddTrap(Coordinate start, Coordinate end, String id, bool draw)
+        {
+            roomTraps.Add(new Wall(start, end, id, draw));
+        }
+
+        
 
         /// <summary>
         /// Adds an entity to the rooms list of entities.
@@ -235,6 +264,21 @@ namespace Game
 
 
         public Wall(Coordinate start, Coordinate end, String id, bool draw)
+        {
+            Start = start;
+            End = end;
+            ID = id;
+            Draw = draw;
+        }
+    }
+
+    public struct Trap
+    {
+        public Coordinate Start, End;
+        public String ID;
+        public bool Draw;
+
+        public Trap(Coordinate start, Coordinate end, String id, bool draw)
         {
             Start = start;
             End = end;

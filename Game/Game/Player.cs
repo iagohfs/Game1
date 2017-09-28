@@ -96,6 +96,9 @@ namespace Game
                 entity.Draw();
             }
             Console.Write(" \n");
+            Console.Write("Your Score: ");
+            Console.Write(World.Score);
+            Console.Write(" \n");
 
         }
 
@@ -131,7 +134,6 @@ namespace Game
                     break;
             }
             World.Score -= 10;
-
         }
 
         /// <summary>
