@@ -8,7 +8,6 @@ namespace Game
 {
     interface IInteractable
     {
-        bool Interact();
-        bool Interact(ItemKey k);
+        bool OnInteract(Player player);
     }
 }

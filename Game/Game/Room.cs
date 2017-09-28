@@ -11,6 +11,8 @@ namespace Game
         int SizeX;
         int SizeY;
         List<Entity> roomEntities = new List<Entity>();
+        List<Character> roomCharacters = new List<Character>();
+        List<Wall> roomWalls = new List<Wall>();
 
         Entity[,] Grid;
         public Entity[,] displayGrid;
@@ -21,10 +23,11 @@ namespace Game
         /// </summary>
         public void Draw()
         {
-            // Creates a clone of the room so that we can draw on it instead of the room.
             displayGrid = (Entity[,])Grid.Clone();
 
-            // Put all the entities in the clone.
+
+            DrawWalls();
+
             DrawRoomEntities();
 
             // Draw the clone to the console window.
@@ -39,6 +42,41 @@ namespace Game
         }
 
         /// <summary>
+        /// Draws all the entities in the rooms list of entities.
+        /// </summary>
+        public void DrawRoomEntities()
+        {
+            for (int i = roomEntities.Count() - 1; i >= 0; i--)
+            {
+                // Put each entity on the drawn grid
+                displayGrid[roomEntities[i].Location.posRow, roomEntities[i].Location.posCol] = roomEntities[i];
+            }
+        }
+
+        public void DrawWalls()
+        {
+            foreach (Wall wall in roomWalls)
+            {
+
+                if (wall.Start.posCol == wall.End.posCol)
+                {
+                    for (int i = wall.Start.posRow; i < wall.End.posRow; i++)
+                    {
+                        displayGrid[i, wall.Start.posCol] = new WallTile();
+                    }
+                }
+                else if (wall.Start.posRow == wall.End.posRow)
+                {
+                    for (int i = wall.Start.posCol; i < wall.End.posCol; i++)
+                    {
+                        displayGrid[wall.Start.posRow, i] = new WallTile();
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
         /// Generate a "square" room of size 20x10.
         /// </summary>
         public Room()
@@ -49,11 +87,10 @@ namespace Game
 
             Grid = GenerateNewGrid(SizeX, SizeY);
 
-            // TODO: Change this to remove magic numbers...
-            AddWall(new Coordinate(0, 0), new Coordinate(9, 0));
-            AddWall(new Coordinate(0, 0), new Coordinate(0, 19));
-            AddWall(new Coordinate(0, 19), new Coordinate(9, 19));
-            AddWall(new Coordinate(9, 0), new Coordinate(9, 20));
+            AddWall(new Coordinate(0, 0), new Coordinate(9, 0), "WestWall", true);
+            AddWall(new Coordinate(0, 0), new Coordinate(0, 19), "NorthWall", true);
+            AddWall(new Coordinate(0, 19), new Coordinate(9, 19), "EastWall", true);
+            AddWall(new Coordinate(9, 0), new Coordinate(9, 20), "SouthWall", true);
         }
 
         /// <summary>
@@ -64,7 +101,6 @@ namespace Game
         public Room(int sizeY, int sizeX)
         {
             Grid = GenerateNewGrid(SizeX, SizeY);
-
         }
 
         public Entity[,] GenerateNewGrid(int sizeY, int sizeX)
@@ -75,67 +111,42 @@ namespace Game
             {
                 for (int j = 0; j < newGrid.GetLength(1); j++)
                 {
-                    newGrid[i, j] = new FloorTile(TileType.Floor);
+                    newGrid[i, j] = new FloorTile();
                 }
             }
 
             return newGrid;
         }
 
-        /// <summary>
-        /// Generate wall between two coordinates. Can only generate horizontal or vertical walls.
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        public void AddWall(Coordinate start, Coordinate end)
+        public void AddWall(Coordinate start, Coordinate end, String id, bool draw)
         {
+            roomWalls.Add(new Wall(start, end, id, draw));
+        }
 
-            if (start.posCol == end.posCol)
-            {
-                for (int i = start.posRow; i < end.posRow; i++)
-                {
-                    Grid[i, start.posCol] = new WallTile();
-                }
-            }
-            else if (start.posRow == end.posRow)
-            {
-                for (int i = start.posCol; i < end.posCol; i++)
-                {
-                    Grid[start.posRow, i] = new WallTile();
-                }
-            }
+        public void SetWallDraw(String id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveWall(String ID)
+        {
+            roomWalls.RemoveAll(Wall => Wall.ID == ID);
         }
 
         /// <summary>
         /// Adds an entity to the rooms list of entities.
         /// </summary>
         /// <param name="e"></param>
-        public void AddRoomEntity(Entity e)
+        public void AddRoomEntity(Entity entity)
         {
-            if(e is Character)
+            if (entity is Character)
             {
-                roomEntities.Insert(0, e);
+                roomEntities.Insert(0, entity);
             }
             else
             {
-                roomEntities.Add(e);
+                roomEntities.Add(entity);
             }
-        }
-
-        /// <summary>
-        /// Draws all the entities in the rooms list of entities.
-        /// </summary>
-        public void DrawRoomEntities()
-        {
-            for(int i = roomEntities.Count() - 1; i >= 0; i--)
-            {
-                // Put each entity on the drawn grid
-                displayGrid[roomEntities[i].Location.posRow, roomEntities[i].Location.posCol] = roomEntities[i];
-            }
-                // Draw order.
-                // Room (Walls floor)
-                // Entities (Items, doors)
-                // Characters (Player) The player must be drawn last.
         }
 
         /// <summary>
@@ -147,16 +158,14 @@ namespace Game
             return roomEntities;
         }
 
-        public void RemoveRoomEntity(Entity e)
+        /// <summary>
+        /// Removes the entity from list.
+        /// </summary>
+        /// <param name="e"></param>
+        public void RemoveRoomEntity(Entity entity)
         {
-            roomEntities.Remove(e);
+            roomEntities.Remove(entity);
         }
-        
-
-        // Something to store the entities in the current room
-        // Ordered list. Keep the player at the lowest index and iterate backwards, to draw the player last.
-
-        // Enum for room types?
     }
 
     /// <summary>
@@ -169,8 +178,8 @@ namespace Game
         public Coordinate(int posRow, int posCol)
         {
             this.posCol = posCol;
-            this.posRow = posRow;            
-        }        
+            this.posRow = posRow;
+        }
 
         /// <summary>
         /// Checks if the coordinate is in the same location.
@@ -193,19 +202,19 @@ namespace Game
         public bool IsAdjacent(Coordinate c)
         {
 
-            if(c.posCol == posCol - 1 && c.posRow == posRow)
+            if (c.posCol == posCol - 1 && c.posRow == posRow)
             {
                 return true;
             }
-            else if(c.posCol == posCol + 1 && c.posRow == posRow)
+            else if (c.posCol == posCol + 1 && c.posRow == posRow)
             {
                 return true;
             }
-            else if(c.posCol == posCol && c.posRow == posRow - 1)
+            else if (c.posCol == posCol && c.posRow == posRow - 1)
             {
                 return true;
             }
-            else if(c.posCol == posCol && c.posRow == posRow + 1)
+            else if (c.posCol == posCol && c.posRow == posRow + 1)
             {
                 return true;
             }
@@ -214,4 +223,24 @@ namespace Game
         }
 
     }
+
+    /// <summary>
+    /// Contains the Start and End coordinates for the wall as well as its unique ID.
+    /// </summary>
+    public struct Wall
+    {
+        public Coordinate Start, End;
+        public String ID;
+        public bool Draw;
+
+
+        public Wall(Coordinate start, Coordinate end, String id, bool draw)
+        {
+            Start = start;
+            End = end;
+            ID = id;
+            Draw = draw;
+        }
+    }
+
 }

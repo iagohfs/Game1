@@ -6,26 +6,35 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Lever : Entity
+    class Lever : Entity, IInteractable
     {
-        public Lever(int Col, int Row, ConsoleColor LevColor, char Symb)
+
+        Action<String> leverAction;
+        String actionTarget;
+
+        public Lever(Coordinate Location, ConsoleColor LevColor, Action<String> action, String actionTarget)
         {
-            Location.posCol = Col;
-            Location.posRow = Row;
+            this.Location = Location;
             Color = LevColor;
-            Symbol = Symb;
-            Collidable = false;
-            IsVisible = true;
+            Symbol = '¬';
+            Collidable = true;
+            IsVisible = false;
+            leverAction = action;
+            this.actionTarget = actionTarget;
+
+            World.CurrentRoom.AddRoomEntity(this);
+
+
         }
 
-        /// <summary>
-        /// Adds the item to the selected players inventory. (Not implemented, will throw exception.)
-        /// </summary>
-        /// <param name="c">The player that the item will added to.</param>
-        /// <returns></returns>
-        public bool AddToInventory(Character c)
+        public bool OnInteract(Player player)
         {
-            throw new NotImplementedException();
+            if (leverAction != null)
+            {
+                leverAction(actionTarget);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -59,19 +59,23 @@ namespace Game
                 }
                 else if (Y)
                 {
+
                     MoveRow(-distance);
                     if (distY != Ymax)
+
                     {
                         distY++;
                     }
                     else
                     {
+
                         X = false;
                         distY--;
                     }
                 }
                 else if (!Y)
                 {
+
                     MoveRow(distance);
                     if (distY != Ymin)
                     {
