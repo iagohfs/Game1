@@ -71,7 +71,7 @@ namespace Game
             {
                 entity.Draw();
             }
-            Console.Write("\n");
+            Console.Write(" \n");
             Console.WriteLine();
 
 
@@ -80,7 +80,7 @@ namespace Game
             {
                 entity.Draw();
             }
-            Console.Write("\n");
+            Console.Write(" \n");
 
         }
 
