@@ -37,27 +37,40 @@ namespace Game
         /// Checks if the player is standing on an item and then picks it up.
         /// </summary>
         /// <returns></returns>
-        public bool PickupItems()
+        public bool CheckTile()
         {
+            // Since we can't modify a list whilst iterating through it, we need to catch a reference to which object we pick up.
             Entity eRef = null;
 
             foreach (Entity entity in World.CurrentRoom.GetRoomEntities())
             {
-                if (Location.Equals(entity.Location) && entity is ICollectable)
+                if (Location.Equals(entity.Location))
                 {
-                    if (entity is ItemKey)
+                    if (entity is ICollectable)
                     {
-                        Keyring.Add((ItemKey)entity);
-                        eRef = entity;
+                        if (entity is ItemKey)
+                        {
+                            Keyring.Add((ItemKey)entity);
+                            eRef = entity;
+                        }
+                        else
+                        {
+                            Inventory.Add(entity);
+                            eRef = entity;
+                        }
                     }
-                    else
+
+                    if(entity is TrapTile)
                     {
-                        Inventory.Add(entity);
-                        eRef = entity;
+                        // Do thing 
                     }
                 }
+
             }
-            World.CurrentRoom.GetRoomEntities().Remove(eRef);
+
+            if(eRef != null)
+                World.CurrentRoom.GetRoomEntities().Remove(eRef);
+
             return true;
         }
 
