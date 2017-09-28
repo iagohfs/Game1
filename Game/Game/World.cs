@@ -29,18 +29,18 @@ namespace Game
             Coin coin2 = new Coin(2, 6, ConsoleColor.Yellow, 'o', 100);
             Coin coin3 = new Coin(1, 13, ConsoleColor.Yellow, 'o', 100);
             Coin superCoin = new Coin(8, 1, ConsoleColor.Red, 'O', 250);
-
-            Door doorRed = new Door(5, 14, ConsoleColor.Red);
-            Door doorGold = new Door(9, 10, ConsoleColor.Yellow);
+ 
             EnemyEntity enemyRoom1 = new EnemyEntity(17, 8, ConsoleColor.DarkGray, '¶');
+
+            Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
+            Lever lever2 = new Lever(new Coordinate(2, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall3");
+
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
 
-            Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
-            Lever lever2 = new Lever(new Coordinate(2, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall3");
-          
             Door doorRed = new Door(14, 5, ConsoleColor.Red, redKey);
+            Door doorGold = new Door(9, 10, ConsoleColor.Yellow, yellowKey);
 
             CurrentRoom.AddRoomEntity(coin1);
             CurrentRoom.AddRoomEntity(coin2);
