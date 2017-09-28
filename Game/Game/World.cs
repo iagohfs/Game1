@@ -9,7 +9,6 @@ namespace Game
     class World
     {
         public static int Score { get; set; }
-        private int addScore = 100;
         /// <summary>
         /// The room that the player is currently in.
         /// </summary>
@@ -26,26 +25,36 @@ namespace Game
             Rooms.Add(start);
             CurrentRoom = start;
 
+            Coin coin1 = new Coin(3, 15, ConsoleColor.Yellow, 'o', 100);
+            Coin coin2 = new Coin(2, 6, ConsoleColor.Yellow, 'o', 100);
+            Coin coin3 = new Coin(1, 13, ConsoleColor.Yellow, 'o', 100);
+            Coin superCoin = new Coin(8, 1, ConsoleColor.Red, 'O', 250);
+
+            Door doorRed = new Door(5, 14, ConsoleColor.Red);
+            Door doorGold = new Door(9, 10, ConsoleColor.Yellow);
+            EnemyEntity enemyRoom1 = new EnemyEntity(17, 8, ConsoleColor.DarkGray, '¶');
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
-            Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
-            Lever lever2 = new Lever(new Coordinate(2, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall3");
-            Door doorRed = new Door(5, 14, ConsoleColor.Red);
 
-            Coins coin1 = new Coins(3, 10, ConsoleColor.Yellow, 'o');
-            Coins coin2 = new Coins(4, 8, ConsoleColor.Yellow, 'o');
-            Coins coin3 = new Coins(1, 12, ConsoleColor.Yellow, 'o');
+            Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
+            Lever lever2 = new Lever(new Coordinate(8, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall9");
+            Lever lever3 = new Lever(new Coordinate(1, 11), ConsoleColor.Yellow, CurrentRoom.RemoveWall, "Wall9");
 
             CurrentRoom.AddRoomEntity(coin1);
             CurrentRoom.AddRoomEntity(coin2);
             CurrentRoom.AddRoomEntity(coin3);
+            CurrentRoom.AddRoomEntity(superCoin);
 
             CurrentRoom.AddRoomEntity(yellowKey);
             CurrentRoom.AddRoomEntity(doorRed);
+            CurrentRoom.AddRoomEntity(doorGold);
             CurrentRoom.AddRoomEntity(redKey);
+
+            CurrentRoom.AddRoomEntity(enemyRoom1);
             // CurrentRoom.AddRoomEntity(lever1);
             // CurrentRoom.AddRoomEntity(lever2);
+
             doorRed.Key = redKey;
 
             start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1", true);
@@ -57,10 +66,14 @@ namespace Game
             start.AddWall(new Coordinate(5, 1), new Coordinate(5, 8), "Wall5", true);
             start.AddWall(new Coordinate(5, 8), new Coordinate(9, 8), "Wall6", true);
 
+            start.AddWall(new Coordinate(1, 8), new Coordinate(4, 8), "Wall7", true);
+            start.AddWall(new Coordinate(1, 12), new Coordinate(4, 12), "Wall8", true);
+            start.AddWall(new Coordinate(3, 9), new Coordinate(3, 12), "Wall9", true);
 
-            EnemyEntity enemyRoom1 = new EnemyEntity(17, 8, ConsoleColor.DarkGray, '¶');
 
-            CurrentRoom.AddRoomEntity(enemyRoom1);
+
+            Score += 1000;
+
             int tilesToMove = 1;
             do
             {
@@ -68,9 +81,17 @@ namespace Game
                 Console.CursorTop = 0;
 
                 start.Draw();
-                player.DrawInventory();                
+                player.DrawInventory();
 
-                Console.WriteLine("Player Score: " + Score);
+
+                Console.Write("Player Score: " + Score);
+                Console.Write(" ");
+
+                if (player.Location.Equals(enemyRoom1.Location))
+                {
+                    Score -= 100;
+                }
+
                 if (enemyRoom1.IsAlive)
                 {
                     enemyRoom1.Move(tilesToMove);
@@ -80,35 +101,15 @@ namespace Game
                     enemyRoom1.IsVisible = false;
                 }
 
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.W:
-                        player.MoveSouth(-1);
-                        break;
+                player.Move();
 
-                    case ConsoleKey.A:
-                        player.MoveEast(-1);
-                        break;
+                // Checks if there are any items that can be picked up.                
 
-                    case ConsoleKey.S:
-                        player.MoveSouth(1);
-                        break;
-                    case ConsoleKey.D:
-                        player.MoveEast(1);
-                        break;
-                    case ConsoleKey.E:
-                        player.Interact();
-                        break;
-                }
-
-                // Checks if there are any items that can be picked up.
-                player.PickupItems();
-                
                 player.CheckTile();
                 player.UpdateVisible();
 
-            } while (player.IsAlive);
-
+            } while (player.IsAlive && Score >= 0);
+            Console.Write("Game Over.");
         }
     }
 }

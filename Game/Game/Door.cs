@@ -15,6 +15,7 @@ namespace Game
         /// A reference to the key that unlocks the door.
         /// </summary>
         public ItemKey Key { get; set; }
+        public Lever Lever {get; set;}
 
         public Door(int doorRow, int doorCol, ConsoleColor doorColor)
         {
@@ -32,6 +33,7 @@ namespace Game
                 IsLocked = false;
                 Collidable = false;
                 Color = ConsoleColor.White;
+                World.Score += 150;
 
                 player.Keyring.Remove(Key);
 

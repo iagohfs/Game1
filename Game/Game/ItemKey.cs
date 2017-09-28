@@ -18,6 +18,8 @@ namespace Game
             IsVisible = false;
         }
 
+        public int PointValue => 100;
+
         /// <summary>
         /// Adds the item to the selected players inventory. (Not implemented, will throw exception.)
         /// </summary>
