@@ -24,7 +24,7 @@ namespace Game
         {
             foreach (Entity item in World.CurrentRoom.GetRoomEntities())
             {
-                if(item is IInteractable && item.Location.IsAdjacent(Location))
+                if (item is IInteractable && item.Location.IsAdjacent(Location))
                 {
                     (item as IInteractable).OnInteract(this);
                 }
@@ -109,9 +109,7 @@ namespace Game
             }
         }
 
-
-
-
+        
 
     }
 }

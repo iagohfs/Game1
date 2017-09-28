@@ -16,10 +16,10 @@ namespace Game
         /// </summary>
         public ItemKey Key { get; set; }
 
-        public Door(int doorCol, int doorRow, ConsoleColor doorColor)
+        public Door(int doorRow, int doorCol, ConsoleColor doorColor)
         {
-            Location.posCol = doorCol;
             Location.posRow = doorRow;
+            Location.posCol = doorCol;
             Color = doorColor;
             Symbol = 'D';
             IsVisible = false;

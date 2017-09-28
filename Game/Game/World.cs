@@ -8,6 +8,8 @@ namespace Game
 {
     class World
     {
+        public static int Score { get; set; }
+        private int addScore = 100;
         /// <summary>
         /// The room that the player is currently in.
         /// </summary>
@@ -29,8 +31,15 @@ namespace Game
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
             Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
             Lever lever2 = new Lever(new Coordinate(2, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall3");
-            Door doorRed = new Door(14, 5, ConsoleColor.Red);
+            Door doorRed = new Door(5, 14, ConsoleColor.Red);
 
+            Coins coin1 = new Coins(3, 10, ConsoleColor.Yellow, 'o');
+            Coins coin2 = new Coins(4, 8, ConsoleColor.Yellow, 'o');
+            Coins coin3 = new Coins(1, 12, ConsoleColor.Yellow, 'o');
+
+            CurrentRoom.AddRoomEntity(coin1);
+            CurrentRoom.AddRoomEntity(coin2);
+            CurrentRoom.AddRoomEntity(coin3);
 
             CurrentRoom.AddRoomEntity(yellowKey);
             CurrentRoom.AddRoomEntity(doorRed);
@@ -57,12 +66,11 @@ namespace Game
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
-                
+
                 start.Draw();
-                player.DrawInventory();
+                player.DrawInventory();                
 
-
-
+                Console.WriteLine("Player Score: " + Score);
                 if (enemyRoom1.IsAlive)
                 {
                     enemyRoom1.Move(tilesToMove);
@@ -71,7 +79,6 @@ namespace Game
                 {
                     enemyRoom1.IsVisible = false;
                 }
-
 
                 switch (Console.ReadKey(true).Key)
                 {
@@ -96,6 +103,7 @@ namespace Game
 
                 // Checks if there are any items that can be picked up.
                 player.PickupItems();
+                
                 player.UpdateVisible();
 
             } while (player.IsAlive);

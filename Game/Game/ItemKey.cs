@@ -15,7 +15,7 @@ namespace Game
             Color = keyColor;
             Symbol = keySymb;
             Collidable = false;
-            IsVisible = true;
+            IsVisible = false;
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Game
         /// </summary>
         /// <param name="c">The player that the item will added to.</param>
         /// <returns></returns>
-        public bool AddToInventory(Character c)
+        public bool AddToInventory(Player player)
         {
             throw new NotImplementedException();
         }
