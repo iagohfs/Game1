@@ -14,15 +14,16 @@ namespace Game
         /// <summary>
         /// A reference to the key that unlocks the door.
         /// </summary>
-        public ItemKey Key { get; set; }
+        ItemKey Key { get; set; }
 
-        public Door(int doorCol, int doorRow, ConsoleColor doorColor)
+        public Door(int doorCol, int doorRow, ConsoleColor doorColor, ItemKey Key)
         {
             Location.posCol = doorCol;
             Location.posRow = doorRow;
             Color = doorColor;
             Symbol = 'D';
             IsVisible = false;
+            this.Key = Key;
         }
 
         public bool OnInteract(Player player)
