@@ -95,7 +95,7 @@ namespace Game
                 }
 
                 // Checks if there are any items that can be picked up.
-                player.PickupItems();
+                player.CheckTile();
                 player.UpdateVisible();
 
             } while (player.IsAlive);
