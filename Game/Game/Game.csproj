@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coin.cs" />
     <Compile Include="EnemyEntity.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="ICollectable.cs" />

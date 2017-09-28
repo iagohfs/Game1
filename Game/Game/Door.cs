@@ -18,8 +18,8 @@ namespace Game
 
         public Door(int doorCol, int doorRow, ConsoleColor doorColor, ItemKey Key)
         {
-            Location.posCol = doorCol;
             Location.posRow = doorRow;
+            Location.posCol = doorCol;
             Color = doorColor;
             Symbol = 'D';
             IsVisible = false;
@@ -33,6 +33,7 @@ namespace Game
                 IsLocked = false;
                 Collidable = false;
                 Color = ConsoleColor.White;
+                World.Score += 150;
 
                 player.Keyring.Remove(Key);
 

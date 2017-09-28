@@ -24,6 +24,7 @@ namespace Game
                 if (item is IInteractable && item.Location.IsAdjacent(Location))
                 {
                     (item as IInteractable).OnInteract(this);
+                    
                 }
             }
         }
@@ -49,18 +50,23 @@ namespace Game
                         {
                             Keyring.Add((ItemKey)entity);
                             eRef = entity;
+                            World.Score += 100;
                         }
                         else
                         {
                             Inventory.Add(entity);
                             eRef = entity;
+                            if(entity is Coin){ World.Score += (entity as Coin).PointValue; }
                         }
+                        
                     }
 
                     if(entity is TrapTile)
                     {
                         // Reduce score by trap damage amount.
                     }
+
+                    
                 }
 
             }
@@ -102,6 +108,32 @@ namespace Game
             return Inventory;
         }
 
+        public void Move()
+        {
+            switch (Console.ReadKey(true).Key)
+            {
+                case ConsoleKey.W:
+                    MoveSouth(-1);
+                    break;
+
+                case ConsoleKey.A:
+                    MoveEast(-1);
+                    break;
+
+                case ConsoleKey.S:
+                    MoveSouth(1);
+                    break;
+                case ConsoleKey.D:
+                    MoveEast(1);
+                    break;
+                case ConsoleKey.E:
+                    Interact();
+                    break;
+            }
+            World.Score -= 10;
+
+        }
+
         /// <summary>
         /// Updates what is visible to the player.
         /// </summary>
@@ -118,9 +150,7 @@ namespace Game
             }
         }
 
-
-
-
+        
 
     }
 }
