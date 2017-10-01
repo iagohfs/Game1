@@ -24,7 +24,7 @@ namespace Game
                 if (item is IInteractable && item.Location.IsAdjacent(Location))
                 {
                     (item as IInteractable).OnInteract(this);
-                    
+
                 }
             }
         }
@@ -56,22 +56,21 @@ namespace Game
                         {
                             Inventory.Add(entity);
                             eRef = entity;
-                            if(entity is Coin){ World.Score += (entity as Coin).PointValue; }
+                            if (entity is Coin) { World.Score += (entity as Coin).PointValue; }
                         }
-                        
+
                     }
 
-                    if(entity is TrapTile)
+                    if (entity is TrapTile)
                     {
                         // Reduce score by trap damage amount.
                     }
 
-                    
                 }
 
             }
 
-            if(eRef != null)
+            if (eRef != null)
                 World.CurrentRoom.GetRoomEntities().Remove(eRef);
             return true;
         }
@@ -116,6 +115,7 @@ namespace Game
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.W:
+
                     MoveSouth(-1);
                     break;
 
@@ -152,7 +152,7 @@ namespace Game
             }
         }
 
-        
+
 
     }
 }

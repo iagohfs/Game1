@@ -10,6 +10,7 @@ namespace Game
     {
 
         public TrapType Type { get; set; }
+
         
         public int Damage { get; private set; }
 
@@ -23,21 +24,24 @@ namespace Game
                     IsVisible = false;
                     Symbol = '^';
                     Color = ConsoleColor.Gray;
-                    Type = TrapType.Pit;
-                    Damage = 10;
+                    Type = TrapType.Spike;
+                    Damage = 500;
                     break;
                 case TrapType.Pit:
                     Collidable = false;
                     IsVisible = false;
                     Symbol = ' ';
                     Color = ConsoleColor.Red;
-                    Type = TrapType.Spike;
-                    Damage = 100;
+                    Type = TrapType.Pit;
+                    Damage = 9999;
                     break;
             }
 
         }
+
+        
     }
 
     public enum TrapType { Spike, Pit }
+
 }

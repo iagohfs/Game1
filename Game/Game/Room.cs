@@ -78,6 +78,22 @@ namespace Game
             }
         }
 
+        public void BiuldWalls()
+        {
+            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1", true);
+            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2", true);
+
+            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(5, 19), "Wall3", true);
+            World.CurrentRoom.AddWall(new Coordinate(7, 13), new Coordinate(7, 17), "Wall4", true);
+
+            World.CurrentRoom.AddWall(new Coordinate(5, 1), new Coordinate(5, 8), "Wall5", true);
+            World.CurrentRoom.AddWall(new Coordinate(5, 8), new Coordinate(9, 8), "Wall6", true);
+
+            World.CurrentRoom.AddWall(new Coordinate(1, 8), new Coordinate(4, 8), "Wall7", true);
+            World.CurrentRoom.AddWall(new Coordinate(1, 12), new Coordinate(4, 12), "Wall8", true);
+            World.CurrentRoom.AddWall(new Coordinate(3, 9), new Coordinate(3, 12), "Wall9", true);
+        }
+
         public void DrawTrap()
         {
             foreach(Wall wall in roomTraps)
@@ -270,6 +286,8 @@ namespace Game
             ID = id;
             Draw = draw;
         }
+
+        
     }
 
     public struct Trap
@@ -287,4 +305,5 @@ namespace Game
         }
     }
 
+    
 }

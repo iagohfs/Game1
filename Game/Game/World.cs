@@ -39,6 +39,7 @@ namespace Game
             Lever lever3 = new Lever(new Coordinate(1, 10), ConsoleColor.Yellow, CurrentRoom.RemoveWall, "Wall7");
 
             CurrentRoom.AddTrap(new Coordinate(5, 9), new Coordinate(5, 12), "Spike", true);
+            
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
@@ -59,21 +60,8 @@ namespace Game
             CurrentRoom.AddRoomEntity(lever1);
             CurrentRoom.AddRoomEntity(lever2);
             CurrentRoom.AddRoomEntity(lever3);
-
             
-
-            start.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1", true);
-            start.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2", true);
-
-            start.AddWall(new Coordinate(5, 12), new Coordinate(5, 19), "Wall3", true);
-            start.AddWall(new Coordinate(7, 13), new Coordinate(7, 17), "Wall4", true);
-
-            start.AddWall(new Coordinate(5, 1), new Coordinate(5, 8), "Wall5", true);
-            start.AddWall(new Coordinate(5, 8), new Coordinate(9, 8), "Wall6", true);
-
-            start.AddWall(new Coordinate(1, 8), new Coordinate(4, 8), "Wall7", true);
-            start.AddWall(new Coordinate(1, 12), new Coordinate(4, 12), "Wall8", true);
-            start.AddWall(new Coordinate(3, 9), new Coordinate(3, 12), "Wall9", true);
+            start.BiuldWalls();
 
             Score += 1000;
 
@@ -85,7 +73,7 @@ namespace Game
 
                 start.Draw();
                 player.DrawInventory();
-               
+
 
                 if (player.Location.Equals(enemyRoom1.Location))
                 {
@@ -101,7 +89,10 @@ namespace Game
                     enemyRoom1.IsVisible = false;
                 }
 
+
+
                 player.Move();
+
 
                 // Checks if there are any items that can be picked up.                
 
@@ -110,6 +101,7 @@ namespace Game
 
             } while (player.IsAlive && Score >= 0);
             Console.Write("Game Over.");
+            System.Threading.Thread.Sleep(2000);
         }
     }
 }
