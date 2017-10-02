@@ -39,7 +39,7 @@ namespace Game
             Lever lever3 = new Lever(new Coordinate(1, 10), ConsoleColor.Yellow, CurrentRoom.RemoveWall, "Wall7");
 
             CurrentRoom.AddTrap(new Coordinate(5, 9), new Coordinate(5, 12), "Spike", true);
-            
+
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
@@ -60,7 +60,7 @@ namespace Game
             CurrentRoom.AddRoomEntity(lever1);
             CurrentRoom.AddRoomEntity(lever2);
             CurrentRoom.AddRoomEntity(lever3);
-            
+
             start.BiuldWalls();
 
             Score += 1000;

@@ -61,98 +61,107 @@ namespace Game
 
                     }
 
-                    if (entity is TrapTile)
-                    {
-                        // Reduce score by trap damage amount.
-                    }
-
                 }
 
             }
 
+            foreach (Entity entity in World.CurrentRoom.displayGrid)
+            {
+
+                if (Location.Equals(entity.Location))
+                {
+                    if (entity is TrapTile)
+                    {
+                        TrapTile trapTile = (TrapTile)entity;
+
+                        World.Score -= trapTile.Damage;
+                    }
+                }
+
+            }
             if (eRef != null)
                 World.CurrentRoom.GetRoomEntities().Remove(eRef);
             return true;
         }
 
-        /// <summary>
-        /// Draws the inventory to the console.
-        /// </summary>
-        public void DrawInventory()
-        {
-            Console.Write("Inventory: ");
-            foreach (Entity entity in Inventory)
+            /// <summary>
+            /// Draws the inventory to the console.
+            /// </summary>
+            public void DrawInventory()
             {
-                entity.Draw();
-            }
-            Console.Write(" \n");
-            Console.WriteLine();
-
-
-            Console.Write("Keys: ");
-            foreach (Entity entity in Keyring)
-            {
-                entity.Draw();
-            }
-            Console.Write(" \n");
-            Console.Write("Your Score: ");
-            Console.Write(World.Score);
-            Console.Write(" \n");
-
-        }
-
-        /// <summary>
-        /// Returns the players inventory.
-        /// </summary>
-        /// <returns></returns>
-        public List<Entity> GetInventory()
-        {
-            return Inventory;
-        }
-
-        public void Move()
-        {
-            switch (Console.ReadKey(true).Key)
-            {
-                case ConsoleKey.W:
-
-                    MoveSouth(-1);
-                    break;
-
-                case ConsoleKey.A:
-                    MoveEast(-1);
-                    break;
-
-                case ConsoleKey.S:
-                    MoveSouth(1);
-                    break;
-                case ConsoleKey.D:
-                    MoveEast(1);
-                    break;
-                case ConsoleKey.E:
-                    Interact();
-                    break;
-            }
-            World.Score -= 10;
-        }
-
-        /// <summary>
-        /// Updates what is visible to the player.
-        /// </summary>
-        public void UpdateVisible()
-        {
-            Entity[,] room = World.CurrentRoom.displayGrid;
-
-            for (int i = Location.posRow - 1; i <= Location.posRow + 1; i++)
-            {
-                for (int j = Location.posCol - 1; j <= Location.posCol + 1; j++)
+                Console.Write("Inventory: ");
+                foreach (Entity entity in Inventory)
                 {
-                    room[i, j].IsVisible = true;
+                    entity.Draw();
+                }
+                Console.Write(" \n");
+                Console.WriteLine();
+
+
+                Console.Write("Keys: ");
+                foreach (Entity entity in Keyring)
+                {
+                    entity.Draw();
+                }
+                Console.Write(" \n");
+                Console.Write("Your Score: ");
+                Console.Write(World.Score);
+                Console.Write(" \n");
+
+            }
+
+            /// <summary>
+            /// Returns the players inventory.
+            /// </summary>
+            /// <returns></returns>
+            public List<Entity> GetInventory()
+            {
+                return Inventory;
+            }
+
+            public void Move()
+            {
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.W:
+
+                        MoveSouth(-1);
+                        break;
+
+                    case ConsoleKey.A:
+                        MoveEast(-1);
+                        break;
+
+                    case ConsoleKey.S:
+                        MoveSouth(1);
+                        break;
+                    case ConsoleKey.D:
+                        MoveEast(1);
+                        break;
+                    case ConsoleKey.E:
+                        Interact();
+                        break;
+                }
+                World.Score -= 10;
+            }
+
+            /// <summary>
+            /// Updates what is visible to the player.
+            /// </summary>
+            public void UpdateVisible()
+            {
+                Entity[,] room = World.CurrentRoom.displayGrid;
+
+                for (int i = Location.posRow - 1; i <= Location.posRow + 1; i++)
+                {
+                    for (int j = Location.posCol - 1; j <= Location.posCol + 1; j++)
+                    {
+                        room[i, j].IsVisible = true;
+                    }
                 }
             }
+
+
+
         }
-
-
-
     }
-}

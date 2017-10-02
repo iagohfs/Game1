@@ -102,7 +102,8 @@ namespace Game
                 {
                     for (int i = wall.Start.posRow; i < wall.End.posRow; i++)
                     {
-                        displayGrid[i, wall.Start.posCol] = new TrapTile(TrapType.Spike);                    }
+                        displayGrid[i, wall.Start.posCol] = new TrapTile(TrapType.Spike);
+                    }
                 }
                 else if (wall.Start.posRow == wall.End.posRow)
                 {
