@@ -37,9 +37,7 @@ namespace Game
                     break;
             }
 
-        }
-
-        
+        }        
     }
 
     public enum TrapType { Spike, Pit }

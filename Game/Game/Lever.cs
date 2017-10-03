@@ -24,7 +24,6 @@ namespace Game
 
             World.CurrentRoom.AddRoomEntity(this);
 
-
         }
 
         public bool OnInteract(Player player)

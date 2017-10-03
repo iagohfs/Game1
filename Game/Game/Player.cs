@@ -66,10 +66,7 @@ namespace Game
             {
                 TrapTile trapTile = (TrapTile)World.CurrentRoom.displayGrid[Location.posRow, Location.posCol];
                 World.Score -= trapTile.Damage;
-            }
-
-            //if (eRef != null)
-            // World.CurrentRoom.GetRoomEntities().Remove(eRef);
+            }            
 
             return true;
         }
