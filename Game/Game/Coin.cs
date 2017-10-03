@@ -22,8 +22,6 @@ namespace Game
 
         public int PointValue { get; set; }
 
-
-
         public bool AddToInventory(Player player)
         {
             throw new NotImplementedException();

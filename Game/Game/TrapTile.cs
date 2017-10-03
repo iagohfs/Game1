@@ -21,7 +21,7 @@ namespace Game
             {
                 case TrapType.Spike:
                     Collidable = false;
-                    IsVisible = true;
+                    IsVisible = false;
                     Symbol = '^';
                     Color = ConsoleColor.Gray;
                     Type = TrapType.Spike;

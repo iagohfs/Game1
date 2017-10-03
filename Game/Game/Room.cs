@@ -10,12 +10,12 @@ namespace Game
     {
         int SizeX;
         int SizeY;
-        List<Entity> roomEntities = new List<Entity>();
+        //List<Entity> roomEntities = new List<Entity>();
         List<Character> roomCharacters = new List<Character>();
         List<Wall> roomWalls = new List<Wall>();
         List<Wall> roomTraps = new List<Wall>();
 
-        Entity[,] Grid;
+        //Entity[,] Grid;
         public Entity[,] displayGrid;
 
 
@@ -24,20 +24,26 @@ namespace Game
         /// </summary>
         public void Draw()
         {
-            displayGrid = (Entity[,])Grid.Clone();
+            //displayGrid = (Entity[,])Grid.Clone();
 
-            DrawWalls();
-
-            DrawTrap();
-
-            DrawRoomEntities();
+            //DrawRoomEntities();
 
             // Draw the clone to the console window.
             for (int row = 0; row < displayGrid.GetLength(0); row++)
             {
                 for (int column = 0; column < displayGrid.GetLength(1); column++)
                 {
-                    displayGrid[row, column].Draw();
+                    Coordinate CurrentPosition = new Coordinate(row, column);
+                    
+                    if (CurrentPosition.Equals(World.player1.Location))
+                    {
+                        World.player1.Draw();
+                    }                    
+                    else
+                    {
+                        displayGrid[row, column].Draw();
+
+                    }
                 }
                 Console.WriteLine();
             }
@@ -46,14 +52,14 @@ namespace Game
         /// <summary>
         /// Draws all the entities in the rooms list of entities.
         /// </summary>
-        public void DrawRoomEntities()
+        /*public void DrawRoomEntities()
         {
             for (int i = roomEntities.Count() - 1; i >= 0; i--)
             {
                 // Put each entity on the drawn grid
                 displayGrid[roomEntities[i].Location.posRow, roomEntities[i].Location.posCol] = roomEntities[i];
             }
-        }
+        }*/
 
         public void DrawWalls()
         {
@@ -96,7 +102,7 @@ namespace Game
 
         public void DrawTrap()
         {
-            foreach(Wall wall in roomTraps)
+            foreach (Wall wall in roomTraps)
             {
                 if (wall.Start.posCol == wall.End.posCol)
                 {
@@ -124,7 +130,7 @@ namespace Game
             SizeX = 20;
             SizeY = 10;
 
-            Grid = GenerateNewGrid(SizeX, SizeY);
+            displayGrid = GenerateNewGrid(SizeX, SizeY);
 
             AddWall(new Coordinate(0, 0), new Coordinate(9, 0), "WestWall", true);
             AddWall(new Coordinate(0, 0), new Coordinate(0, 19), "NorthWall", true);
@@ -139,7 +145,7 @@ namespace Game
         /// <param name="sizeX">Width of the room</param>
         public Room(int sizeY, int sizeX)
         {
-            Grid = GenerateNewGrid(SizeX, SizeY);
+            displayGrid = GenerateNewGrid(SizeX, SizeY);
         }
 
         public Entity[,] GenerateNewGrid(int sizeY, int sizeX)
@@ -177,7 +183,12 @@ namespace Game
             roomTraps.Add(new Wall(start, end, id, draw));
         }
 
-        
+        public void RemoveTrap(String ID)
+        {
+            roomTraps.RemoveAll(Wall => Wall.ID == ID);
+        }
+
+
 
         /// <summary>
         /// Adds an entity to the rooms list of entities.
@@ -185,33 +196,26 @@ namespace Game
         /// <param name="e"></param>
         public void AddRoomEntity(Entity entity)
         {
-            if (entity is Character)
-            {
-                roomEntities.Insert(0, entity);
-            }
-            else
-            {
-                roomEntities.Add(entity);
-            }
+            displayGrid[entity.Location.posRow, entity.Location.posCol] = entity;
         }
 
         /// <summary>
         /// Returns a list of all entites in the room.
         /// </summary>
         /// <returns></returns>
-        public List<Entity> GetRoomEntities()
+       /* public List<Entity> GetRoomEntities()
         {
             return roomEntities;
-        }
+        }*/
 
         /// <summary>
         /// Removes the entity from list.
         /// </summary>
         /// <param name="e"></param>
-        public void RemoveRoomEntity(Entity entity)
+       /* public void RemoveRoomEntity(Entity entity)
         {
             roomEntities.Remove(entity);
-        }
+        }*/
     }
 
     /// <summary>
@@ -288,7 +292,7 @@ namespace Game
             Draw = draw;
         }
 
-        
+
     }
 
     public struct Trap
@@ -306,5 +310,5 @@ namespace Game
         }
     }
 
-    
+
 }
