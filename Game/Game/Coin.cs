@@ -18,6 +18,8 @@ namespace Game
             Collidable = false;
             IsVisible = false;
             PointValue = value;
+
+            World.CurrentRoom.AddRoomEntity(this);
         }
 
         public int PointValue { get; set; }

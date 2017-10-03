@@ -16,6 +16,8 @@ namespace Game
             Symbol = keySymb;
             Collidable = false;
             IsVisible = false;
+
+            World.CurrentRoom.AddRoomEntity(this);
         }
 
         public int PointValue => 100;

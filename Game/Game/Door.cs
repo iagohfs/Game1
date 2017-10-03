@@ -24,6 +24,8 @@ namespace Game
             Symbol = 'D';
             IsVisible = false;
             this.Key = Key;
+
+            World.CurrentRoom.AddRoomEntity(this);
         }
 
         public bool OnInteract(Player player)

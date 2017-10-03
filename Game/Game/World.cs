@@ -17,13 +17,17 @@ namespace Game
 
         public World()
         {
-            List<Room> Rooms = new List<Room>();
             Room start = new Room();
             player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
+            Score += 1000;
+            Console.CursorVisible = false;
 
-            // Add the room to the list of rooms.
-            Rooms.Add(start);
+            // Add the room to the list of rooms
+            
             CurrentRoom = start;
+            start.BuildWalls();
+            CurrentRoom.DrawTrap();
+            CurrentRoom.DrawWalls();
 
             Coin coin1 = new Coin(3, 15, ConsoleColor.Yellow, 'o', 100);
             Coin coin2 = new Coin(2, 6, ConsoleColor.Yellow, 'o', 100);
@@ -38,7 +42,7 @@ namespace Game
             Lever lever2 = new Lever(new Coordinate(8, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall9");
             Lever lever3 = new Lever(new Coordinate(1, 10), ConsoleColor.Yellow, CurrentRoom.RemoveTrap, "Spike");
 
-            CurrentRoom.AddTrap(new Coordinate(5, 9), new Coordinate(5, 12), "Spike");
+            
 
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
@@ -46,27 +50,6 @@ namespace Game
 
             Door doorRed = new Door(14, 5, ConsoleColor.Red, redKey);
             Exit doorGold = new Exit(10, 8, ConsoleColor.Yellow, yellowKey);
-
-            start.BiuldWalls();
-
-            Score += 1000;
-
-            CurrentRoom.DrawTrap();
-            CurrentRoom.DrawWalls();
-
-            CurrentRoom.AddRoomEntity(coin1);
-            CurrentRoom.AddRoomEntity(coin2);
-            CurrentRoom.AddRoomEntity(coin3);
-            CurrentRoom.AddRoomEntity(superCoin);
-
-            CurrentRoom.AddRoomEntity(yellowKey);
-            CurrentRoom.AddRoomEntity(doorRed);
-            CurrentRoom.AddRoomEntity(doorGold);
-            CurrentRoom.AddRoomEntity(redKey);
-
-            CurrentRoom.AddRoomEntity(lever1);
-            CurrentRoom.AddRoomEntity(lever2);
-            CurrentRoom.AddRoomEntity(lever3);
 
             int tilesToMove = 1;
             do
@@ -80,19 +63,12 @@ namespace Game
                 player1.DrawInventory();
 
 
-                if (player1.Location.Equals(enemyRoom1.Location))
+                // Move this to player tile check.
+                /*if (player1.Location.Equals(enemyRoom1.Location))
                 {
                     Score -= 100;
                 }
-
-                if (enemyRoom1.IsAlive)
-                {
-                    enemyRoom1.Move(tilesToMove);
-                }
-                else
-                {
-                    enemyRoom1.IsVisible = false;
-                }
+                */
 
                 player1.Move();
                 player1.UpdateVisible();

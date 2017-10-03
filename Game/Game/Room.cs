@@ -73,7 +73,7 @@ namespace Game
             }
         }
 
-        public void BiuldWalls()
+        public void BuildWalls()
         {
             World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1");
             World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2");
@@ -87,6 +87,7 @@ namespace Game
             World.CurrentRoom.AddWall(new Coordinate(1, 8), new Coordinate(4, 8), "Wall7");
             World.CurrentRoom.AddWall(new Coordinate(1, 12), new Coordinate(4, 12), "Wall8");
             World.CurrentRoom.AddWall(new Coordinate(3, 9), new Coordinate(3, 12), "Wall9");
+            World.CurrentRoom.AddTrap(new Coordinate(5, 9), new Coordinate(5, 12), "Spike");
         }
 
         public void DrawTrap()
