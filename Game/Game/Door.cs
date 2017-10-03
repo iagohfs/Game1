@@ -14,7 +14,7 @@ namespace Game
         /// <summary>
         /// A reference to the key that unlocks the door.
         /// </summary>
-        ItemKey Key { get; set; }
+        protected ItemKey Key { get; set; }
 
         public Door(int doorCol, int doorRow, ConsoleColor doorColor, ItemKey Key)
         {
@@ -42,5 +42,7 @@ namespace Game
 
             return false;
         }
+
+        
     }
 }

@@ -11,7 +11,7 @@ namespace Game
         public WallTile()
         {
             Collidable = true;
-            IsVisible = true;
+            IsVisible = false;
             Symbol = '#';
             Color = ConsoleColor.White;
         }

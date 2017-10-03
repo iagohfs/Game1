@@ -20,14 +20,5 @@ namespace Game
 
         public int PointValue => 100;
 
-        /// <summary>
-        /// Adds the item to the selected players inventory. (Not implemented, will throw exception.)
-        /// </summary>
-        /// <param name="c">The player that the item will added to.</param>
-        /// <returns></returns>
-        public bool AddToInventory(Player player)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

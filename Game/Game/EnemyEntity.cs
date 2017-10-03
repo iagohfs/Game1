@@ -18,7 +18,7 @@ namespace Game
             Color = enemColor;
             Symbol = enemSymb;
             Collidable = false;
-            IsVisible = true;
+            IsVisible = false;
 
         }
 

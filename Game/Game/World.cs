@@ -21,7 +21,6 @@ namespace Game
             Room start = new Room();
             player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
 
-
             // Add the room to the list of rooms.
             Rooms.Add(start);
             CurrentRoom = start;
@@ -39,16 +38,14 @@ namespace Game
             Lever lever2 = new Lever(new Coordinate(8, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall9");
             Lever lever3 = new Lever(new Coordinate(1, 10), ConsoleColor.Yellow, CurrentRoom.RemoveTrap, "Spike");
 
-            CurrentRoom.AddTrap(new Coordinate(5, 9), new Coordinate(5, 12), "Spike", true);
+            CurrentRoom.AddTrap(new Coordinate(5, 9), new Coordinate(5, 12), "Spike");
 
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
 
             Door doorRed = new Door(14, 5, ConsoleColor.Red, redKey);
-            Door doorGold = new Door(10, 8, ConsoleColor.Yellow, yellowKey);
-
-            
+            Exit doorGold = new Exit(10, 8, ConsoleColor.Yellow, yellowKey);
 
             start.BiuldWalls();
 
@@ -71,13 +68,14 @@ namespace Game
             CurrentRoom.AddRoomEntity(lever2);
             CurrentRoom.AddRoomEntity(lever3);
 
-
             int tilesToMove = 1;
             do
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
 
+
+                player1.UpdateVisible();
                 start.Draw();
                 player1.DrawInventory();
 
@@ -96,19 +94,21 @@ namespace Game
                     enemyRoom1.IsVisible = false;
                 }
 
-
                 player1.Move();
                 player1.UpdateVisible();
 
-
-                // Checks if there are any items that can be picked up.                
-
+                // Checks if there are any items that can be picked up.
                 player1.CheckTile();
 
 
             } while (player1.IsAlive && Score >= 0);
-            Console.Write("Game Over.");
+            Console.Clear();
+            Console.WriteLine("Game Over.");
+
+            Console.WriteLine($"Your score was: {Score}");
+
             System.Threading.Thread.Sleep(2000);
+            Console.ReadKey();
         }
     }
 }

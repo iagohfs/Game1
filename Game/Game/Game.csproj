@@ -46,6 +46,7 @@
     <Compile Include="Coin.cs" />
     <Compile Include="EnemyEntity.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Exit.cs" />
     <Compile Include="ICollectable.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IInteractable.cs" />

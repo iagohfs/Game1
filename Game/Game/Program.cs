@@ -11,7 +11,6 @@ namespace Game
         static void Main(string[] args)
         {
             World world = new World();
-            
 
         }
     }

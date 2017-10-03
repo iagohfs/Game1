@@ -10,7 +10,6 @@ namespace Game
     {
         int SizeX;
         int SizeY;
-        //List<Entity> roomEntities = new List<Entity>();
         List<Character> roomCharacters = new List<Character>();
         List<Wall> roomWalls = new List<Wall>();
         List<Wall> roomTraps = new List<Wall>();
@@ -24,9 +23,6 @@ namespace Game
         /// </summary>
         public void Draw()
         {
-            //displayGrid = (Entity[,])Grid.Clone();
-
-            //DrawRoomEntities();
 
             // Draw the clone to the console window.
             for (int row = 0; row < displayGrid.GetLength(0); row++)
@@ -34,11 +30,16 @@ namespace Game
                 for (int column = 0; column < displayGrid.GetLength(1); column++)
                 {
                     Coordinate CurrentPosition = new Coordinate(row, column);
-                    
+
+                    if (row == 0 || row == displayGrid.GetLength(0) - 1 || column == 0 || column == displayGrid.GetLength(1) - 1)
+                    {
+                        displayGrid[row, column].IsVisible = true;
+                    }
+
                     if (CurrentPosition.Equals(World.player1.Location))
                     {
                         World.player1.Draw();
-                    }                    
+                    }
                     else
                     {
                         displayGrid[row, column].Draw();
@@ -48,19 +49,7 @@ namespace Game
                 Console.WriteLine();
             }
         }
-
-        /// <summary>
-        /// Draws all the entities in the rooms list of entities.
-        /// </summary>
-        /*public void DrawRoomEntities()
-        {
-            for (int i = roomEntities.Count() - 1; i >= 0; i--)
-            {
-                // Put each entity on the drawn grid
-                displayGrid[roomEntities[i].Location.posRow, roomEntities[i].Location.posCol] = roomEntities[i];
-            }
-        }*/
-
+        
         public void DrawWalls()
         {
             foreach (Wall wall in roomWalls)
@@ -86,18 +75,18 @@ namespace Game
 
         public void BiuldWalls()
         {
-            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1", true);
-            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2", true);
+            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(19, 5), "Wall1");
+            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(9, 12), "Wall2");
 
-            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(5, 19), "Wall3", true);
-            World.CurrentRoom.AddWall(new Coordinate(7, 13), new Coordinate(7, 17), "Wall4", true);
+            World.CurrentRoom.AddWall(new Coordinate(5, 12), new Coordinate(5, 19), "Wall3");
+            World.CurrentRoom.AddWall(new Coordinate(7, 13), new Coordinate(7, 17), "Wall4");
 
-            World.CurrentRoom.AddWall(new Coordinate(5, 1), new Coordinate(5, 8), "Wall5", true);
-            World.CurrentRoom.AddWall(new Coordinate(5, 8), new Coordinate(9, 8), "Wall6", true);
+            World.CurrentRoom.AddWall(new Coordinate(5, 1), new Coordinate(5, 8), "Wall5");
+            World.CurrentRoom.AddWall(new Coordinate(5, 8), new Coordinate(9, 8), "Wall6");
 
-            World.CurrentRoom.AddWall(new Coordinate(1, 8), new Coordinate(4, 8), "Wall7", true);
-            World.CurrentRoom.AddWall(new Coordinate(1, 12), new Coordinate(4, 12), "Wall8", true);
-            World.CurrentRoom.AddWall(new Coordinate(3, 9), new Coordinate(3, 12), "Wall9", true);
+            World.CurrentRoom.AddWall(new Coordinate(1, 8), new Coordinate(4, 8), "Wall7");
+            World.CurrentRoom.AddWall(new Coordinate(1, 12), new Coordinate(4, 12), "Wall8");
+            World.CurrentRoom.AddWall(new Coordinate(3, 9), new Coordinate(3, 12), "Wall9");
         }
 
         public void DrawTrap()
@@ -132,10 +121,10 @@ namespace Game
 
             displayGrid = GenerateNewGrid(SizeX, SizeY);
 
-            AddWall(new Coordinate(0, 0), new Coordinate(9, 0), "WestWall", true);
-            AddWall(new Coordinate(0, 0), new Coordinate(0, 19), "NorthWall", true);
-            AddWall(new Coordinate(0, 19), new Coordinate(9, 19), "EastWall", true);
-            AddWall(new Coordinate(9, 0), new Coordinate(9, 20), "SouthWall", true);
+            AddWall(new Coordinate(0, 0), new Coordinate(9, 0), "WestWall");
+            AddWall(new Coordinate(0, 0), new Coordinate(0, 19), "NorthWall");
+            AddWall(new Coordinate(0, 19), new Coordinate(9, 19), "EastWall");
+            AddWall(new Coordinate(9, 0), new Coordinate(9, 20), "SouthWall");
         }
 
         /// <summary>
@@ -163,9 +152,9 @@ namespace Game
             return newGrid;
         }
 
-        public void AddWall(Coordinate start, Coordinate end, String id, bool draw)
+        public void AddWall(Coordinate start, Coordinate end, String id)
         {
-            roomWalls.Add(new Wall(start, end, id, draw));
+            roomWalls.Add(new Wall(start, end, id));
         }
 
         public void SetWallDraw(String id)
@@ -175,20 +164,50 @@ namespace Game
 
         public void RemoveWall(String ID)
         {
-            roomWalls.RemoveAll(Wall => Wall.ID == ID);
+            
+            Wall wall = roomWalls.Find(Wall => Wall.ID == ID);
+            if (wall.Start.posCol == wall.End.posCol)
+            {
+                for (int i = wall.Start.posRow; i < wall.End.posRow; i++)
+                {
+                    World.CurrentRoom.displayGrid[i, wall.Start.posCol] = new FloorTile();
+                }
+            }
+            else if (wall.Start.posRow == wall.End.posRow)
+            {
+                for (int j = wall.Start.posCol; j < wall.End.posCol; j++)
+                {
+                    World.CurrentRoom.displayGrid[wall.Start.posRow, j] = new FloorTile();
+                }
+            }
+
         }
 
-        public void AddTrap(Coordinate start, Coordinate end, String id, bool draw)
+        public void AddTrap(Coordinate start, Coordinate end, String id)
         {
-            roomTraps.Add(new Wall(start, end, id, draw));
+            roomTraps.Add(new Wall(start, end, id));
         }
 
         public void RemoveTrap(String ID)
         {
-            roomTraps.RemoveAll(Wall => Wall.ID == ID);
+            
+            Wall wall = roomTraps.Find(Wall => Wall.ID == ID);
+            if (wall.Start.posCol == wall.End.posCol)
+            {
+                for (int i = wall.Start.posRow; i < wall.End.posRow; i++)
+                {
+                    World.CurrentRoom.displayGrid[i, wall.Start.posCol] = new FloorTile();
+                }
+            }
+            else if (wall.Start.posRow == wall.End.posRow)
+            {
+                for (int j = wall.Start.posCol; j < wall.End.posCol; j++)
+                {
+                    World.CurrentRoom.displayGrid[wall.Start.posRow, j] = new FloorTile();
+                }
+            }
+
         }
-
-
 
         /// <summary>
         /// Adds an entity to the rooms list of entities.
@@ -199,23 +218,16 @@ namespace Game
             displayGrid[entity.Location.posRow, entity.Location.posCol] = entity;
         }
 
-        /// <summary>
-        /// Returns a list of all entites in the room.
-        /// </summary>
-        /// <returns></returns>
-       /* public List<Entity> GetRoomEntities()
-        {
-            return roomEntities;
-        }*/
-
+        
         /// <summary>
         /// Removes the entity from list.
         /// </summary>
         /// <param name="e"></param>
-       /* public void RemoveRoomEntity(Entity entity)
+        public void RemoveRoomEntity(Entity entity)
         {
-            roomEntities.Remove(entity);
-        }*/
+            displayGrid.Equals(entity);
+        }
+
     }
 
     /// <summary>
@@ -281,17 +293,14 @@ namespace Game
     {
         public Coordinate Start, End;
         public String ID;
-        public bool Draw;
 
-
-        public Wall(Coordinate start, Coordinate end, String id, bool draw)
+        public Wall(Coordinate start, Coordinate end, String id)
         {
             Start = start;
             End = end;
             ID = id;
-            Draw = draw;
-        }
 
+        }
 
     }
 
@@ -299,16 +308,15 @@ namespace Game
     {
         public Coordinate Start, End;
         public String ID;
-        public bool Draw;
 
-        public Trap(Coordinate start, Coordinate end, String id, bool draw)
+        public Trap(Coordinate start, Coordinate end, String id)
         {
             Start = start;
             End = end;
             ID = id;
-            Draw = draw;
-        }
-    }
 
+        }
+
+    }
 
 }

@@ -57,12 +57,9 @@ namespace Game
                     if (entity is Coin)
                     {
                         World.Score += (entity as Coin).PointValue;
-
                     }
                 }
-
-                entity = new FloorTile();
-
+                World.CurrentRoom.displayGrid[World.player1.Location.posRow, World.player1.Location.posCol] = new FloorTile();
             }
 
             if (World.CurrentRoom.displayGrid[Location.posRow, Location.posCol] is TrapTile)
@@ -72,7 +69,7 @@ namespace Game
             }
 
             //if (eRef != null)
-               // World.CurrentRoom.GetRoomEntities().Remove(eRef);
+            // World.CurrentRoom.GetRoomEntities().Remove(eRef);
 
             return true;
         }
@@ -152,9 +149,7 @@ namespace Game
                     room[i, j].IsVisible = true;
                 }
             }
+
         }
-
-
-
     }
 }
