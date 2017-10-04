@@ -10,7 +10,8 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            World world = new World();
+            Game game = new Game();
+            game.Instructions();
         }
     }
 

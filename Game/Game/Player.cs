@@ -19,17 +19,15 @@ namespace Game
 
         public void Interact()
         {
-            foreach (Entity item in World.CurrentRoom.GetRoomEntities())
+            foreach (Entity item in World.CurrentRoom.displayGrid)
             {
                 if (item is IInteractable && item.Location.IsAdjacent(Location))
                 {
                     (item as IInteractable).OnInteract(this);
-                    
-                }
+
+                }                
             }
         }
-
-
 
         /// <summary>
         /// Checks if the player is standing on an item and then picks it up.
@@ -40,39 +38,34 @@ namespace Game
             // Since we can't modify a list whilst iterating through it, we need to catch a reference to which object we pick up.
             Entity eRef = null;
 
-            foreach (Entity entity in World.CurrentRoom.GetRoomEntities())
+            Entity entity = World.CurrentRoom.displayGrid[Location.posRow, Location.posCol];
+
+            if (entity is ICollectable)
             {
-                if (Location.Equals(entity.Location))
+                if (entity is ItemKey)
                 {
-                    if (entity is ICollectable)
-                    {
-                        if (entity is ItemKey)
-                        {
-                            Keyring.Add((ItemKey)entity);
-                            eRef = entity;
-                            World.Score += 100;
-                        }
-                        else
-                        {
-                            Inventory.Add(entity);
-                            eRef = entity;
-                            if(entity is Coin){ World.Score += (entity as Coin).PointValue; }
-                        }
-                        
-                    }
-
-                    if(entity is TrapTile)
-                    {
-                        // Reduce score by trap damage amount.
-                    }
-
-                    
+                    Keyring.Add((ItemKey)entity);
+                    eRef = entity;
+                    World.Score += 100;
                 }
-
+                else
+                {
+                    Inventory.Add(entity);
+                    eRef = entity;
+                    if (entity is Coin)
+                    {
+                        World.Score += (entity as Coin).PointValue;
+                    }
+                }
+                World.CurrentRoom.displayGrid[World.player1.Location.posRow, World.player1.Location.posCol] = new FloorTile();
             }
 
-            if(eRef != null)
-                World.CurrentRoom.GetRoomEntities().Remove(eRef);
+            if (World.CurrentRoom.displayGrid[Location.posRow, Location.posCol] is TrapTile)
+            {
+                TrapTile trapTile = (TrapTile)World.CurrentRoom.displayGrid[Location.posRow, Location.posCol];
+                World.Score -= trapTile.Damage;
+            }
+
             return true;
         }
 
@@ -96,6 +89,9 @@ namespace Game
                 entity.Draw();
             }
             Console.Write(" \n");
+            Console.Write("Your Score: ");
+            Console.Write(World.Score);
+            Console.Write(" \n");
 
         }
 
@@ -113,6 +109,7 @@ namespace Game
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.W:
+
                     MoveSouth(-1);
                     break;
 
@@ -123,16 +120,33 @@ namespace Game
                 case ConsoleKey.S:
                     MoveSouth(1);
                     break;
+
                 case ConsoleKey.D:
                     MoveEast(1);
                     break;
+
                 case ConsoleKey.E:
                     Interact();
                     break;
+
+                case ConsoleKey.Escape:
+                    World.player1.IsAlive = false;
+                    World.Score = 10;
+                    break;
+                case ConsoleKey.M:
+                    {
+                        World.player1.IsAlive = false;
+                        Game game = new Game();
+                        Console.Clear();
+                        World.Score = 0;
+                        game.Menu();
+                        
+                        break;
+                    }
             }
             World.Score -= 10;
-
         }
+
 
         /// <summary>
         /// Updates what is visible to the player.
@@ -148,9 +162,7 @@ namespace Game
                     room[i, j].IsVisible = true;
                 }
             }
+
         }
-
-        
-
     }
 }

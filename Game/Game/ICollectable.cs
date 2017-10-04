@@ -8,7 +8,6 @@ namespace Game
 {
     interface ICollectable
     {
-        bool AddToInventory(Player player);
         int PointValue { get; }
     }
 

@@ -30,7 +30,7 @@ namespace Game
             else
             {
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.Write('?');
+                Console.Write(' ');
                 Console.ResetColor();
             }
             
