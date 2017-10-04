@@ -15,6 +15,7 @@ namespace Game
         public static Room CurrentRoom { set; get; }
         public static Player player1 { get; set; }
 
+
         public World()
         {
             Room start = new Room();
@@ -22,8 +23,6 @@ namespace Game
             Score += 1000;
             Console.CursorVisible = false;
 
-            // Add the room to the list of rooms
-            
             CurrentRoom = start;
             start.BuildWalls();
             CurrentRoom.DrawTrap();
@@ -39,11 +38,9 @@ namespace Game
             CurrentRoom.AddRoomEntity(enemyRoom1);
 
             Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
+            Lever lever3 = new Lever(new Coordinate(4, 1), ConsoleColor.Green, CurrentRoom.RemoveWall, "");
             Lever lever2 = new Lever(new Coordinate(8, 18), ConsoleColor.Green, CurrentRoom.RemoveWall, "Wall9");
-            Lever lever3 = new Lever(new Coordinate(1, 10), ConsoleColor.Yellow, CurrentRoom.RemoveTrap, "Spike");
-
-            
-
+            Lever trap1 = new Lever(new Coordinate(1, 10), ConsoleColor.Yellow, CurrentRoom.RemoveTrap, "Spike");
 
             ItemKey redKey = new ItemKey(4, 8, ConsoleColor.Red, '¥');
             ItemKey yellowKey = new ItemKey(13, 8, ConsoleColor.Yellow, '¥');
@@ -51,24 +48,14 @@ namespace Game
             Door doorRed = new Door(14, 5, ConsoleColor.Red, redKey);
             Exit doorGold = new Exit(10, 8, ConsoleColor.Yellow, yellowKey);
 
-            int tilesToMove = 1;
             do
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
 
-
                 player1.UpdateVisible();
                 start.Draw();
                 player1.DrawInventory();
-
-
-                // Move this to player tile check.
-                /*if (player1.Location.Equals(enemyRoom1.Location))
-                {
-                    Score -= 100;
-                }
-                */
 
                 player1.Move();
                 player1.UpdateVisible();
@@ -78,8 +65,9 @@ namespace Game
 
 
             } while (player1.IsAlive && Score >= 0);
+
             Console.Clear();
-            Console.WriteLine("Game Over.");
+            Console.WriteLine("Game Over!");
 
             Console.WriteLine($"Your score was: {Score}");
 

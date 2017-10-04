@@ -25,11 +25,9 @@ namespace Game
                 {
                     (item as IInteractable).OnInteract(this);
 
-                }
+                }                
             }
         }
-
-
 
         /// <summary>
         /// Checks if the player is standing on an item and then picks it up.
@@ -66,7 +64,7 @@ namespace Game
             {
                 TrapTile trapTile = (TrapTile)World.CurrentRoom.displayGrid[Location.posRow, Location.posCol];
                 World.Score -= trapTile.Damage;
-            }            
+            }
 
             return true;
         }
@@ -122,15 +120,33 @@ namespace Game
                 case ConsoleKey.S:
                     MoveSouth(1);
                     break;
+
                 case ConsoleKey.D:
                     MoveEast(1);
                     break;
+
                 case ConsoleKey.E:
                     Interact();
                     break;
+
+                case ConsoleKey.Escape:
+                    World.player1.IsAlive = false;
+                    World.Score = 10;
+                    break;
+                case ConsoleKey.M:
+                    {
+                        World.player1.IsAlive = false;
+                        Game game = new Game();
+                        Console.Clear();
+                        World.Score = 0;
+                        game.Menu();
+                        
+                        break;
+                    }
             }
             World.Score -= 10;
         }
+
 
         /// <summary>
         /// Updates what is visible to the player.
