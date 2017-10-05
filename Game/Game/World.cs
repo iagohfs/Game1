@@ -12,21 +12,21 @@ namespace Game
         /// Player Score.
         /// </summary>
         public static int Score { get; set; }
-        /// <summary>
-        /// The room that the player is currently in.
-        /// </summary>
-        public static Room CurrentRoom { set; get; }
-        public static Player player1 { get; set; }
         
+        // Game was originally supposed to be multi-room, but the feature was cut.
+        public static Room CurrentRoom { set; get; }
+        public static Player Player1 { get; set; }
+
+
         public World()
         {
+            CurrentRoom =  new Room();
+            Player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
+            Score += 1000;
             Console.CursorVisible = false;
             CurrentRoom = new Room();
 
-            player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
             EnemyEntity enemyRoom1 = new EnemyEntity('¶', new Coordinate(8, 17), ConsoleColor.Cyan);
-            Score += 1000;
-            
             CurrentRoom.BuildWalls();
             CurrentRoom.DrawTrap();
             CurrentRoom.DrawWalls();
@@ -53,20 +53,18 @@ namespace Game
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
-
-                player1.UpdateVisible();
+                // Update the players view range.
+                Player1.UpdateVisible();
+                // Draw the map and inventory to console.
                 CurrentRoom.Draw();
+                Player1.DrawInventory();
 
-                player1.DrawInventory();
-
-                player1.Move();
-                enemyRoom1.Move();
-                
-                player1.UpdateVisible();
+                // Get user input and move the player and update view range again.
+                Player1.Move();
+                Player1.UpdateVisible();
 
                 // Checks if there are any items that can be picked up.
-                player1.CheckTile();
-
+                Player1.CheckTile();
             } while (player1.IsAlive && Score >= 0);
 
             Console.Clear();

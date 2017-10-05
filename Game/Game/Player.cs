@@ -57,12 +57,11 @@ namespace Game
                         World.Score += (entity as Coin).PointValue;
                     }
                 }
-                World.CurrentRoom.displayGrid[World.player1.Location.posRow, World.player1.Location.posCol] = new FloorTile();
+                World.CurrentRoom.displayGrid[World.Player1.Location.posRow, World.Player1.Location.posCol] = new FloorTile();
             }
 
-            if (World.CurrentRoom.displayGrid[Location.posRow, Location.posCol] is TrapTile)
+            if (World.CurrentRoom.displayGrid[Location.posRow, Location.posCol] is TrapTile trapTile)
             {
-                TrapTile trapTile = (TrapTile)World.CurrentRoom.displayGrid[Location.posRow, Location.posCol];
                 World.Score -= trapTile.Damage;
             }
 
@@ -129,7 +128,7 @@ namespace Game
                     break;
 
                 case ConsoleKey.Escape:
-                    World.player1.IsAlive = false;
+                    World.Player1.IsAlive = false;
                     World.Score = 10;
                     break;
 
@@ -140,7 +139,6 @@ namespace Game
                     World.Score = 0;
                     game.Menu();
                     break;
-
             }
             World.Score -= 10;
         }
@@ -153,6 +151,7 @@ namespace Game
         {
             Entity[,] room = World.CurrentRoom.displayGrid;
 
+            // Updates 1 tile in each direction from the player.
             for (int i = Location.posRow - 1; i <= Location.posRow + 1; i++)
             {
                 for (int j = Location.posCol - 1; j <= Location.posCol + 1; j++)
