@@ -8,38 +8,47 @@ namespace Game
 {
     class EnemyEntity : Character
     {
+        public int Damage { get; set; }
 
-
-        public EnemyEntity(char enemSymb, Coordinate Location, ConsoleColor enemColor) : base(enemSymb, Location, enemColor)
+        public EnemyEntity(char enemSymb, Coordinate Location, ConsoleColor enemColor, int dmg) : base(enemSymb, Location, enemColor)
         {
             Collidable = false;
-            IsVisible = true;
-            
+            IsVisible = false;
+            Damage = dmg;
         }
 
         public void Move()
         {
-
             if (IsAlive)
             {
-                MoveEast(-1);
-                UpdateVisible();
+                Random random = new Random();
 
-            }
-        }
-
-        public void UpdateVisible()
-        {
-            Entity[,] room = World.CurrentRoom.displayGrid;
-
-            for (int i = Location.posRow - 1; i <= Location.posRow + 1; i++)
-            {
-                for (int j = Location.posCol - 1; j <= Location.posCol + 1; j++)
+                if (World.Player1.Location.IsAdjacent(Location))
                 {
-                    room[i, j].IsVisible = true;
+                    IsVisible = true;
                 }
-            }
 
+                System.Threading.Thread.Sleep(05);
+                switch (random.Next(1, 8))
+                {
+                    case 1:
+                        MoveSouth(-1);
+                        break;
+
+                    case 2:
+                        MoveEast(-1);
+                        break;
+
+                    case 3:
+                        MoveSouth(1);
+                        break;
+
+                    case 4:
+                        MoveEast(1);
+                        break;
+                }
+
+            }
         }
         
     }

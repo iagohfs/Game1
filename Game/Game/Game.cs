@@ -51,13 +51,14 @@ namespace Game
             Console.Clear();
             Console.WriteLine($"\n You're locked in a dungeon. To escape you must find the secret levers '¬' and keys '¥'!");
             Console.WriteLine(" Your score is your best friend. Watch out for the monster (he eats score).");
-            Console.WriteLine(" Every time you move you lose score. Plan your movements accordingly.\n");
+            Console.WriteLine(" Every time you move you lose score. Plan your movements accordingly.\n");            
 
             Console.WriteLine(" Ingame commands:\n\n W,A,S,D to move the player around." +
                 "\n E to interact with objects (Doors and levers)." +
                 "\n ESC to exit." +
                 "\n M to go to Menu (and lose all progress).");
-            Console.WriteLine("\n\n Walk over coins and keys to pick them up.\n");
+            Console.WriteLine("\n\n Walk over coins and keys to pick them up.");
+            Console.WriteLine(" Enemies will only be visible if you look directly at them\n");
 
             Console.WriteLine(" Goodluck!");
             Console.WriteLine(" Press any key to go to Menu. . .");

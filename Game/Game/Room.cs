@@ -138,7 +138,8 @@ namespace Game
             AddWall(new Coordinate(0, 0), new Coordinate(SizeRows-1, 0), "WestWall");
             AddWall(new Coordinate(0, 0), new Coordinate(0, SizeCols-1), "NorthWall");
             AddWall(new Coordinate(0, SizeCols-1), new Coordinate(SizeRows-1, SizeCols-1), "EastWall");
-            AddWall(new Coordinate(SizeRows-1, 0), new Coordinate(SizeRows-1, SizeCols-1), "SouthWall");
+            AddWall(new Coordinate(SizeRows-1, 0), new Coordinate(SizeRows-1, SizeCols), "SouthWall");
+
         }
 
         /// <summary>

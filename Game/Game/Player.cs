@@ -60,6 +60,18 @@ namespace Game
                 World.CurrentRoom.displayGrid[World.Player1.Location.posRow, World.Player1.Location.posCol] = new FloorTile();
             }
 
+            //Gets list of all Characters including the player
+            List<Character> enemies = World.CurrentRoom.GetRoomCharacter().FindAll(Character => Character.Location.Equals(Location));
+            enemies.Remove(this); //Remove the player from the list so just enemies are left.
+
+            if (enemies.Count >= 1)
+            {
+                foreach (Character c in enemies)
+                {
+                    World.Score -= (c as EnemyEntity).Damage;
+                }
+            }
+
             if (World.CurrentRoom.displayGrid[Location.posRow, Location.posCol] is TrapTile trapTile)
             {
                 World.Score -= trapTile.Damage;
@@ -133,7 +145,7 @@ namespace Game
                     break;
 
                 case ConsoleKey.M:
-                    World.player1.IsAlive = false;
+                    World.Player1.IsAlive = false;
                     Game game = new Game();
                     Console.Clear();
                     World.Score = 0;

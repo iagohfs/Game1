@@ -12,7 +12,7 @@ namespace Game
         /// Player Score.
         /// </summary>
         public static int Score { get; set; }
-        
+
         // Game was originally supposed to be multi-room, but the feature was cut.
         public static Room CurrentRoom { set; get; }
         public static Player Player1 { get; set; }
@@ -20,13 +20,14 @@ namespace Game
 
         public World()
         {
-            CurrentRoom =  new Room();
-            Player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
-            Score += 1000;
             Console.CursorVisible = false;
             CurrentRoom = new Room();
 
-            EnemyEntity enemyRoom1 = new EnemyEntity('¶', new Coordinate(8, 17), ConsoleColor.Cyan);
+            Player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
+            EnemyEntity enemy1 = new EnemyEntity('¶', new Coordinate(8, 17), ConsoleColor.DarkRed, 400);
+            EnemyEntity enemy2 = new EnemyEntity('¶', new Coordinate(8, 4), ConsoleColor.DarkCyan, 200);
+            Score += 1000;
+
             CurrentRoom.BuildWalls();
             CurrentRoom.DrawTrap();
             CurrentRoom.DrawWalls();
@@ -35,8 +36,6 @@ namespace Game
             Coin coin2 = new Coin(2, 6, ConsoleColor.Yellow, 'o', 100);
             Coin coin3 = new Coin(1, 13, ConsoleColor.Yellow, 'o', 100);
             Coin superCoin = new Coin(8, 1, ConsoleColor.Red, 'O', 250);
-
-            
 
             Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
             Lever lever3 = new Lever(new Coordinate(4, 1), ConsoleColor.Green, CurrentRoom.RemoveWall, "");
@@ -53,8 +52,10 @@ namespace Game
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
+
                 // Update the players view range.
                 Player1.UpdateVisible();
+
                 // Draw the map and inventory to console.
                 CurrentRoom.Draw();
                 Player1.DrawInventory();
@@ -63,9 +64,13 @@ namespace Game
                 Player1.Move();
                 Player1.UpdateVisible();
 
+                enemy1.Move();
+                enemy2.Move();
+
                 // Checks if there are any items that can be picked up.
                 Player1.CheckTile();
-            } while (player1.IsAlive && Score >= 0);
+
+            } while (Player1.IsAlive && Score >= 0);
 
             Console.Clear();
 
