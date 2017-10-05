@@ -8,8 +8,8 @@ namespace Game
 {
     class Room : IEntity
     {
-        int SizeX;
-        int SizeY;
+        int SizeCols;
+        int SizeRows;
         List<Character> roomCharacters = new List<Character>();
         List<Wall> roomWalls = new List<Wall>();
         List<Wall> roomTraps = new List<Wall>();
@@ -23,22 +23,22 @@ namespace Game
         /// </summary>
         public void Draw()
         {
-
-            // Draw the clone to the console window.
             for (int row = 0; row < displayGrid.GetLength(0); row++)
             {
                 for (int column = 0; column < displayGrid.GetLength(1); column++)
                 {
                     Coordinate CurrentPosition = new Coordinate(row, column);
-
+                    
+                    // Set the edge tiles to visible.
                     if (row == 0 || row == displayGrid.GetLength(0) - 1 || column == 0 || column == displayGrid.GetLength(1) - 1)
                     {
                         displayGrid[row, column].IsVisible = true;
                     }
 
-                    if (CurrentPosition.Equals(World.player1.Location))
+                    // Player has highest priority draw.
+                    if (CurrentPosition.Equals(World.Player1.Location))
                     {
-                        World.player1.Draw();
+                        World.Player1.Draw();
                     }
                     else
                     {
@@ -50,6 +50,7 @@ namespace Game
             }
         }
         
+        // Get the walls from the list and put them in the displayGrid.
         public void DrawWalls()
         {
             foreach (Wall wall in roomWalls)
@@ -90,6 +91,7 @@ namespace Game
             World.CurrentRoom.AddTrap(new Coordinate(5, 9), new Coordinate(5, 12), "Spike");
         }
 
+        // Same principle as the DrawWalls method.
         public void DrawTrap()
         {
             foreach (Wall wall in roomTraps)
@@ -117,30 +119,31 @@ namespace Game
         public Room()
         {
             // Default room size.
-            SizeX = 20;
-            SizeY = 10;
+            SizeCols = 20;
+            SizeRows = 10;
 
-            displayGrid = GenerateNewGrid(SizeX, SizeY);
+            displayGrid = GenerateNewGrid(SizeCols, SizeRows);
 
-            AddWall(new Coordinate(0, 0), new Coordinate(9, 0), "WestWall");
-            AddWall(new Coordinate(0, 0), new Coordinate(0, 19), "NorthWall");
-            AddWall(new Coordinate(0, 19), new Coordinate(9, 19), "EastWall");
-            AddWall(new Coordinate(9, 0), new Coordinate(9, 20), "SouthWall");
+            AddWall(new Coordinate(0, 0), new Coordinate(SizeRows-1, 0), "WestWall");
+            AddWall(new Coordinate(0, 0), new Coordinate(0, SizeCols-1), "NorthWall");
+            AddWall(new Coordinate(0, SizeCols-1), new Coordinate(SizeRows-1, SizeCols-1), "EastWall");
+            AddWall(new Coordinate(SizeRows-1, 0), new Coordinate(SizeRows-1, SizeCols-1), "SouthWall");
         }
 
         /// <summary>
         /// Generate a new room.
         /// </summary>
-        /// <param name="sizeY">Height of the room</param>
-        /// <param name="sizeX">Width of the room</param>
-        public Room(int sizeY, int sizeX)
+        /// <param name="sizeRows">Height of the room</param>
+        /// <param name="sizeCols">Width of the room</param>
+        public Room(int sizeRows, int sizeCols)
         {
-            displayGrid = GenerateNewGrid(SizeX, SizeY);
+            displayGrid = GenerateNewGrid(sizeRows, sizeCols);
         }
 
-        public Entity[,] GenerateNewGrid(int sizeY, int sizeX)
+        // Create a grid with only floortiles.
+        public Entity[,] GenerateNewGrid(int sizeRows, int sizeCols)
         {
-            Entity[,] newGrid = new Entity[SizeY, SizeX];
+            Entity[,] newGrid = new Entity[sizeCols, sizeRows];
 
             for (int i = 0; i < newGrid.GetLength(0); i++)
             {

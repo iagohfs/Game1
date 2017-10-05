@@ -9,22 +9,20 @@ namespace Game
     class World
     {
         public static int Score { get; set; }
-        /// <summary>
-        /// The room that the player is currently in.
-        /// </summary>
+        
+        // Game was originally supposed to be multi-room, but the feature was cut.
         public static Room CurrentRoom { set; get; }
-        public static Player player1 { get; set; }
+        public static Player Player1 { get; set; }
 
 
         public World()
         {
-            Room start = new Room();
-            player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
+            CurrentRoom =  new Room();
+            Player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
             Score += 1000;
             Console.CursorVisible = false;
 
-            CurrentRoom = start;
-            start.BuildWalls();
+            CurrentRoom.BuildWalls();
             CurrentRoom.DrawTrap();
             CurrentRoom.DrawWalls();
 
@@ -53,18 +51,21 @@ namespace Game
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
 
-                player1.UpdateVisible();
-                start.Draw();
-                player1.DrawInventory();
+                // Update the players view range.
+                Player1.UpdateVisible();
+                // Draw the map and inventory to console.
+                CurrentRoom.Draw();
+                Player1.DrawInventory();
 
-                player1.Move();
-                player1.UpdateVisible();
+                // Get user input and move the player and update view range again.
+                Player1.Move();
+                Player1.UpdateVisible();
 
                 // Checks if there are any items that can be picked up.
-                player1.CheckTile();
+                Player1.CheckTile();
 
 
-            } while (player1.IsAlive && Score >= 0);
+            } while (Player1.IsAlive && Score >= 0);
 
             Console.Clear();
             Console.WriteLine("Game Over!");
