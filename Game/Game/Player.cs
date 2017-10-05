@@ -25,7 +25,7 @@ namespace Game
                 {
                     (item as IInteractable).OnInteract(this);
 
-                }                
+                }
             }
         }
 
@@ -108,7 +108,6 @@ namespace Game
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.W:
-
                     MoveSouth(-1);
                     break;
 
@@ -132,16 +131,14 @@ namespace Game
                     World.Player1.IsAlive = false;
                     World.Score = 10;
                     break;
+
                 case ConsoleKey.M:
-                    {
-                        World.Player1.IsAlive = false;
-                        Game game = new Game();
-                        Console.Clear();
-                        World.Score = 0;
-                        game.Menu();
-                        
-                        break;
-                    }
+                    World.player1.IsAlive = false;
+                    Game game = new Game();
+                    Console.Clear();
+                    World.Score = 0;
+                    game.Menu();
+                    break;
             }
             World.Score -= 10;
         }

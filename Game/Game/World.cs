@@ -8,6 +8,9 @@ namespace Game
 {
     class World
     {
+        /// <summary>
+        /// Player Score.
+        /// </summary>
         public static int Score { get; set; }
         
         // Game was originally supposed to be multi-room, but the feature was cut.
@@ -21,7 +24,9 @@ namespace Game
             Player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
             Score += 1000;
             Console.CursorVisible = false;
+            CurrentRoom = new Room();
 
+            EnemyEntity enemyRoom1 = new EnemyEntity('¶', new Coordinate(8, 17), ConsoleColor.Cyan);
             CurrentRoom.BuildWalls();
             CurrentRoom.DrawTrap();
             CurrentRoom.DrawWalls();
@@ -31,9 +36,7 @@ namespace Game
             Coin coin3 = new Coin(1, 13, ConsoleColor.Yellow, 'o', 100);
             Coin superCoin = new Coin(8, 1, ConsoleColor.Red, 'O', 250);
 
-            EnemyEntity enemyRoom1 = new EnemyEntity(17, 8, ConsoleColor.DarkGray, '¶');
-
-            CurrentRoom.AddRoomEntity(enemyRoom1);
+            
 
             Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
             Lever lever3 = new Lever(new Coordinate(4, 1), ConsoleColor.Green, CurrentRoom.RemoveWall, "");
@@ -50,7 +53,6 @@ namespace Game
             {
                 Console.CursorLeft = 0;
                 Console.CursorTop = 0;
-
                 // Update the players view range.
                 Player1.UpdateVisible();
                 // Draw the map and inventory to console.
@@ -63,16 +65,15 @@ namespace Game
 
                 // Checks if there are any items that can be picked up.
                 Player1.CheckTile();
-
-
-            } while (Player1.IsAlive && Score >= 0);
+            } while (player1.IsAlive && Score >= 0);
 
             Console.Clear();
+
             Console.WriteLine("Game Over!");
 
             Console.WriteLine($"Your score was: {Score}");
 
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(1000);
             Console.ReadKey();
         }
     }
