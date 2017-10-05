@@ -17,39 +17,50 @@ namespace Game
         //Entity[,] Grid;
         public Entity[,] displayGrid;
 
+        public void AddRoomCharacters(Character character)
+        {
+            roomCharacters.Add(character);
+        }
+
+        public List<Character> GetRoomCharacter()
+        {
+            return roomCharacters;
+        }
 
         /// <summary>
         /// Draws the room to the console.
         /// </summary>
         public void Draw()
         {
-
             // Draw the clone to the console window.
             for (int row = 0; row < displayGrid.GetLength(0); row++)
             {
                 for (int column = 0; column < displayGrid.GetLength(1); column++)
                 {
                     Coordinate CurrentPosition = new Coordinate(row, column);
+                    Character character = roomCharacters.Find(Character => Character.Location.Equals(CurrentPosition));
 
                     if (row == 0 || row == displayGrid.GetLength(0) - 1 || column == 0 || column == displayGrid.GetLength(1) - 1)
                     {
                         displayGrid[row, column].IsVisible = true;
                     }
 
-                    if (CurrentPosition.Equals(World.player1.Location))
+                    if(character != null)
                     {
-                        World.player1.Draw();
+                        character.Draw();
                     }
                     else
                     {
                         displayGrid[row, column].Draw();
 
-                    }
+                    }                    
+
                 }
+
                 Console.WriteLine();
             }
         }
-        
+
         public void DrawWalls()
         {
             foreach (Wall wall in roomWalls)
@@ -165,7 +176,7 @@ namespace Game
 
         public void RemoveWall(String ID)
         {
-            
+
             Wall wall = roomWalls.Find(Wall => Wall.ID == ID);
             if (wall.Start.posCol == wall.End.posCol)
             {
@@ -191,7 +202,7 @@ namespace Game
 
         public void RemoveTrap(String ID)
         {
-            
+
             Wall wall = roomTraps.Find(Wall => Wall.ID == ID);
             if (wall.Start.posCol == wall.End.posCol)
             {
@@ -219,7 +230,7 @@ namespace Game
             displayGrid[entity.Location.posRow, entity.Location.posCol] = entity;
         }
 
-        
+
         /// <summary>
         /// Removes the entity from list.
         /// </summary>

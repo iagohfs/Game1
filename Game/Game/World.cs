@@ -8,23 +8,26 @@ namespace Game
 {
     class World
     {
+        /// <summary>
+        /// Player Score.
+        /// </summary>
         public static int Score { get; set; }
         /// <summary>
         /// The room that the player is currently in.
         /// </summary>
         public static Room CurrentRoom { set; get; }
         public static Player player1 { get; set; }
-
-
+        
         public World()
         {
-            Room start = new Room();
-            player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
-            Score += 1000;
             Console.CursorVisible = false;
+            CurrentRoom = new Room();
 
-            CurrentRoom = start;
-            start.BuildWalls();
+            player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
+            EnemyEntity enemyRoom1 = new EnemyEntity('¶', new Coordinate(8, 17), ConsoleColor.Cyan);
+            Score += 1000;
+            
+            CurrentRoom.BuildWalls();
             CurrentRoom.DrawTrap();
             CurrentRoom.DrawWalls();
 
@@ -33,9 +36,7 @@ namespace Game
             Coin coin3 = new Coin(1, 13, ConsoleColor.Yellow, 'o', 100);
             Coin superCoin = new Coin(8, 1, ConsoleColor.Red, 'O', 250);
 
-            EnemyEntity enemyRoom1 = new EnemyEntity(17, 8, ConsoleColor.DarkGray, '¶');
-
-            CurrentRoom.AddRoomEntity(enemyRoom1);
+            
 
             Lever lever1 = new Lever(new Coordinate(4, 18), ConsoleColor.Magenta, CurrentRoom.RemoveWall, "Wall5");
             Lever lever3 = new Lever(new Coordinate(4, 1), ConsoleColor.Green, CurrentRoom.RemoveWall, "");
@@ -54,24 +55,27 @@ namespace Game
                 Console.CursorTop = 0;
 
                 player1.UpdateVisible();
-                start.Draw();
+                CurrentRoom.Draw();
+
                 player1.DrawInventory();
 
                 player1.Move();
+                enemyRoom1.Move();
+                
                 player1.UpdateVisible();
 
                 // Checks if there are any items that can be picked up.
                 player1.CheckTile();
 
-
             } while (player1.IsAlive && Score >= 0);
 
             Console.Clear();
+
             Console.WriteLine("Game Over!");
 
             Console.WriteLine($"Your score was: {Score}");
 
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(1000);
             Console.ReadKey();
         }
     }
