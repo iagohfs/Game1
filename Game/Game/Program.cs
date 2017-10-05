@@ -8,6 +8,11 @@ namespace Game
 {
     class Program
     {
+
+        /* HIGHSCORES:
+         * 
+         * 
+         * */
         static void Main(string[] args)
         {
             /*HIGSCORE:
