@@ -8,19 +8,12 @@ namespace Game
 {
     class Program
     {
-
-        /* HIGHSCORES:
-         * 
-         * 
-         * */
         static void Main(string[] args)
         {
             /*HIGSCORE:
+             * Tobias = 760
              * Olle = 530
-             * 
-             * 
-             * 
-             * 
+             * Emil = 360
             */
 
             Game game = new Game();
