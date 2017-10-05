@@ -47,9 +47,7 @@ namespace Game
                         MoveEast(1);
                         break;
                 }
-
             }
-        }
-        
+        }        
     }
 }

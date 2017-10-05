@@ -11,6 +11,7 @@ namespace Game
         int SizeCols;
         int SizeRows;
         List<Character> roomCharacters = new List<Character>();
+        // These lists are used to keep track of the traps and walls, so that we can remove them.
         List<Wall> roomWalls = new List<Wall>();
         List<Wall> roomTraps = new List<Wall>();
 
@@ -22,7 +23,7 @@ namespace Game
             roomCharacters.Add(character);
         }
 
-        public List<Character> GetRoomCharacter()
+        public List<Character> GetRoomCharacters()
         {
             return roomCharacters;
         }
@@ -36,7 +37,8 @@ namespace Game
             {
                 for (int column = 0; column < displayGrid.GetLength(1); column++)
                 {
-                    Coordinate CurrentPosition = new Coordinate(row, column);                  
+                    Coordinate CurrentPosition = new Coordinate(row, column);    
+                    // Get any character that is at the current coordinate.
                     Character character = roomCharacters.Find(Character => Character.Location.Equals(CurrentPosition));
                     
                     // Set the edge tiles to visible.
@@ -45,6 +47,7 @@ namespace Game
                         displayGrid[row, column].IsVisible = true;
                     }
 
+                    // If there is a character at this coordinate, draw them first.
                     if(character != null)
                     {
                         character.Draw();
@@ -52,7 +55,6 @@ namespace Game
                     else
                     {
                         displayGrid[row, column].Draw();
-
                     }                    
 
                 }
@@ -103,7 +105,7 @@ namespace Game
         }
 
         // Same principle as the DrawWalls method.
-        public void DrawTrap()
+        public void DrawTraps()
         {
             foreach (Wall wall in roomTraps)
             {

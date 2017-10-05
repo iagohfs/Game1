@@ -40,9 +40,7 @@ namespace Game
                     Console.Clear();
                     Menu();
                     break;
-
             }
-
         }
 
         public void Instructions()
@@ -51,7 +49,7 @@ namespace Game
             Console.Clear();
             Console.WriteLine($"\n You're locked in a dungeon. To escape you must find the secret levers '¬' and keys '¥'!");
             Console.WriteLine(" Your score is your best friend. Watch out for the monster (he eats score).");
-            Console.WriteLine(" Every time you move you lose score. Plan your movements accordingly.\n");            
+            Console.WriteLine(" Every time you move you lose score. Plan your movements accordingly.\n");
 
             Console.WriteLine(" Ingame commands:\n\n W,A,S,D to move the player around." +
                 "\n E to interact with objects (Doors and levers)." +

@@ -8,8 +8,21 @@ namespace Game
 {
     class Program
     {
+
+        /* HIGHSCORES:
+         * 
+         * 
+         * */
         static void Main(string[] args)
         {
+            /*HIGSCORE:
+             * Olle = 530
+             * 
+             * 
+             * 
+             * 
+            */
+
             Game game = new Game();
             game.Instructions();
         }

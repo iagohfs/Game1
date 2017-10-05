@@ -16,21 +16,29 @@ namespace Game
         // Game was originally supposed to be multi-room, but the feature was cut.
         public static Room CurrentRoom { set; get; }
         public static Player Player1 { get; set; }
+        public static bool HasWon { get; set; }
 
 
         public World()
         {
             Console.CursorVisible = false;
-            CurrentRoom = new Room();
+            HasWon = false;
 
-            Player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
-            EnemyEntity enemy1 = new EnemyEntity('¶', new Coordinate(8, 17), ConsoleColor.DarkRed, 400);
-            EnemyEntity enemy2 = new EnemyEntity('¶', new Coordinate(8, 4), ConsoleColor.DarkCyan, 200);
+            CurrentRoom = new Room();
             Score += 1000;
 
+            // Players and enemies
+            Player1 = new Player('@', new Coordinate(1, 1), ConsoleColor.Green);
+            EnemyEntity enemy1 = new EnemyEntity('¶', new Coordinate(8, 17), ConsoleColor.DarkRed, 100);
+            EnemyEntity enemy2 = new EnemyEntity('¶', new Coordinate(8, 4), ConsoleColor.DarkCyan, 200);
+            
+            // Add the walls of the level
             CurrentRoom.BuildWalls();
-            CurrentRoom.DrawTrap();
+
+            // Draw them to the displaygrid
+            CurrentRoom.DrawTraps();
             CurrentRoom.DrawWalls();
+
 
             Coin coin1 = new Coin(3, 15, ConsoleColor.Yellow, 'o', 100);
             Coin coin2 = new Coin(2, 6, ConsoleColor.Yellow, 'o', 100);
@@ -70,13 +78,18 @@ namespace Game
                 // Checks if there are any items that can be picked up.
                 Player1.CheckTile();
 
-            } while (Player1.IsAlive && Score >= 0);
+            } while (Player1.IsAlive && Score >= 0 && !HasWon);
 
             Console.Clear();
-
-            Console.WriteLine("Game Over!");
-
-            Console.WriteLine($"Your score was: {Score}");
+            if (!HasWon)
+            {
+                Console.WriteLine("Game Over!");
+            }
+            else
+            {
+                Console.WriteLine("You won!");
+                Console.WriteLine($"Your score was: {Score}");
+            }
 
             System.Threading.Thread.Sleep(1000);
             Console.ReadKey();

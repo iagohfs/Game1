@@ -61,7 +61,7 @@ namespace Game
             }
 
             //Gets list of all Characters including the player
-            List<Character> enemies = World.CurrentRoom.GetRoomCharacter().FindAll(Character => Character.Location.Equals(Location));
+            List<Character> enemies = World.CurrentRoom.GetRoomCharacters().FindAll(Character => Character.Location.Equals(Location));
             enemies.Remove(this); //Remove the player from the list so just enemies are left.
 
             if (enemies.Count >= 1)
@@ -103,7 +103,6 @@ namespace Game
             Console.Write("Your Score: ");
             Console.Write(World.Score);
             Console.Write(" \n");
-
         }
 
         /// <summary>
@@ -155,7 +154,6 @@ namespace Game
             World.Score -= 10;
         }
 
-
         /// <summary>
         /// Updates what is visible to the player.
         /// </summary>
@@ -171,7 +169,6 @@ namespace Game
                     room[i, j].IsVisible = true;
                 }
             }
-
         }
     }
 }

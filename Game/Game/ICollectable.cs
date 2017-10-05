@@ -11,5 +11,4 @@ namespace Game
         int PointValue { get; }
     }
 
-    
 }
