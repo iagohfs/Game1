@@ -22,8 +22,8 @@ namespace Game
                 World.Score += 150;
 
                 player.Keyring.Remove(Key);
-                
-                player.IsAlive = false;
+
+                World.HasWon = true;
 
                 return true;
             }
