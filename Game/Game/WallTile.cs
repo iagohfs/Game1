@@ -15,6 +15,5 @@ namespace Game
             Symbol = '#';
             Color = ConsoleColor.White;
         }
-
     }
 }

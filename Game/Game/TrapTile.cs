@@ -8,12 +8,8 @@ namespace Game
 {
     class TrapTile : FloorTile
     {
-
-        public TrapType Type { get; set; }
-
-        
+        public TrapType Type { get; set; }        
         public int Damage { get; private set; }
-
 
         public TrapTile(TrapType type)
         {
@@ -36,10 +32,8 @@ namespace Game
                     Damage = 9999;
                     break;
             }
-
         }        
     }
 
     public enum TrapType { Spike, Pit }
-
 }

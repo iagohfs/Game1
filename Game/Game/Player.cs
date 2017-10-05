@@ -103,7 +103,6 @@ namespace Game
             Console.Write("Your Score: ");
             Console.Write(World.Score);
             Console.Write(" \n");
-
         }
 
         /// <summary>
@@ -155,7 +154,6 @@ namespace Game
             World.Score -= 10;
         }
 
-
         /// <summary>
         /// Updates what is visible to the player.
         /// </summary>
@@ -171,7 +169,6 @@ namespace Game
                     room[i, j].IsVisible = true;
                 }
             }
-
         }
     }
 }

@@ -10,6 +10,14 @@ namespace Game
     {
         static void Main(string[] args)
         {
+            /*HIGSCORE:
+             * Olle = 530
+             * 
+             * 
+             * 
+             * 
+            */
+
             Game game = new Game();
             game.Instructions();
         }

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace Game
 {
     public abstract class MovableEntity : Entity
-    {
-        
+    {        
         /// <summary>
         /// Moves the MovableEntity to a new row.
         /// </summary>
@@ -23,7 +22,6 @@ namespace Game
             }
 
             return false;
-
         }
 
         /// <summary>
