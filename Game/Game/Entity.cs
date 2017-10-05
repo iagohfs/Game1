@@ -13,7 +13,7 @@ namespace Game
 
         public Coordinate Location;
 
-        public ConsoleColor Color;
+        public ConsoleColor Color { get; set; }
 
         public bool Collidable = true;
 

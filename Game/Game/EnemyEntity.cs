@@ -6,36 +6,50 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class EnemyEntity : MovableEntity
+    class EnemyEntity : Character
     {
+        public int Damage { get; set; }
 
-        public bool IsAlive = true;
-
-        public EnemyEntity(int enemCol, int enemRow, ConsoleColor enemColor, char enemSymb)
+        public EnemyEntity(char enemSymb, Coordinate Location, ConsoleColor enemColor, int dmg) : base(enemSymb, Location, enemColor)
         {
-            Location.posCol = enemCol;
-            Location.posRow = enemRow;
-            Color = enemColor;
-            Symbol = enemSymb;
             Collidable = false;
             IsVisible = false;
-
+            Damage = dmg;
         }
 
-
-        public bool Move(int distance)
+        public void Move()
         {
-
             if (IsAlive)
             {
-                return true;
+                Random random = new Random();
+
+                if (World.Player1.Location.IsAdjacent(Location))
+                {
+                    IsVisible = true;
+                }
+
+                System.Threading.Thread.Sleep(05);
+                switch (random.Next(1, 8))
+                {
+                    case 1:
+                        MoveSouth(-1);
+                        break;
+
+                    case 2:
+                        MoveEast(-1);
+                        break;
+
+                    case 3:
+                        MoveSouth(1);
+                        break;
+
+                    case 4:
+                        MoveEast(1);
+                        break;
+                }
+
             }
-
-            return false;
-
-
         }
-
-
+        
     }
 }

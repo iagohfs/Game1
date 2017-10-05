@@ -20,6 +20,7 @@ namespace Game
             Symbol = symbol;
             Location = location;
             Color = color;
+            World.CurrentRoom.AddRoomCharacters(this);
         }
     }
 
